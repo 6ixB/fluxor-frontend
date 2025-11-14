@@ -37,6 +37,7 @@ import {
   withForm,
 } from "@/hooks/use-simulation-config-form";
 import { Item } from "@/components/ui/item";
+import { PiIcon, VariableIcon } from "lucide-react";
 
 const Axis = {
   X: "x",
@@ -110,13 +111,44 @@ type ParametersFormWindVelocityFunctionInputProps = {
   ) => void;
 };
 
-const SUPPORTED_MATH_FUNCTIONS = {
-  Trigonometric: ["sin", "cos", "tan", "asin", "acos", "atan"],
-  Hyperbolic: ["sinh", "cosh", "tanh"],
-  "Exponential / Logarithmic": ["exp", "log", "log10"],
-  "Roots & Powers": ["sqrt", "pow"],
-  Miscellaneous: ["fabs", "floor", "ceil"],
-  "Optional Convenience": ["abs", "minimum", "maximum"],
+type SupportedMathFunction = {
+  display: string; // what shows in the table
+};
+
+const SUPPORTED_MATH_FUNCTIONS: Record<string, SupportedMathFunction[]> = {
+  Trigonometric: [
+    { display: "sin(t)" },
+    { display: "cos(t)" },
+    { display: "tan(t)" },
+    { display: "asin(t)" },
+    { display: "acos(t)" },
+    { display: "atan(t)" },
+  ],
+  Hyperbolic: [
+    { display: "sinh(t)" },
+    { display: "cosh(t)" },
+    { display: "tanh(t)" },
+  ],
+  "Exponential / Logarithmic": [
+    { display: "exp(t)" },
+    { display: "log(t)" },
+    { display: "log10(t)" },
+  ],
+  "Roots & Powers": [{ display: "sqrt(t)" }, { display: "pow(t, n)" }],
+  Miscellaneous: [
+    { display: "fabs(t)" },
+    { display: "floor(t)" },
+    { display: "ceil(t)" },
+  ],
+  "Optional Convenience": [
+    { display: "abs(t)" },
+    { display: "min(t, value)" },
+    { display: "max(t, value)" },
+  ],
+} as const;
+
+const SUPPORTED_MATH_CONSTANTS = {
+  Constants: ["pi", "e"],
 } as const;
 
 const ParametersFormWindVelocityFunctionInput = withForm({
@@ -134,38 +166,6 @@ const ParametersFormWindVelocityFunctionInput = withForm({
             </p>
           </div>
           <Accordion type="single" collapsible>
-            <AccordionItem value="supported-math-functions">
-              <AccordionTrigger>Supported Math Functions</AccordionTrigger>
-              <AccordionContent>
-                <Table>
-                  <TableCaption>
-                    A list of supported math functions for custom wind velocity
-                    definitions.
-                  </TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Function</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Object.entries(SUPPORTED_MATH_FUNCTIONS).map(
-                      ([category, functions]) =>
-                        functions.map((fn) => (
-                          <TableRow key={`${category}-${fn}`}>
-                            <TableCell className="text-muted-foreground text-xs">
-                              {category}
-                            </TableCell>
-                            <TableCell>
-                              <code>{fn}</code>
-                            </TableCell>
-                          </TableRow>
-                        )),
-                    )}
-                  </TableBody>
-                </Table>
-              </AccordionContent>
-            </AccordionItem>
             <AccordionItem value="x-axis">
               <AccordionTrigger>
                 <div className="flex items-center gap-x-2">
@@ -337,6 +337,80 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                     );
                   }}
                 />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="supported-math-functions">
+              <AccordionTrigger className="text-muted-foreground">
+                <div className="flex items-center gap-x-2 font-normal">
+                  <VariableIcon className="size-4" />
+                  Supported Math Functions
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <Table>
+                  <TableCaption>
+                    A list of supported math functions for custom wind velocity
+                    definitions.
+                  </TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Function</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(SUPPORTED_MATH_FUNCTIONS).map(
+                      ([category, functions]) =>
+                        functions.map((fn) => (
+                          <TableRow key={`${category}-${fn.display}`}>
+                            <TableCell className="text-muted-foreground text-xs">
+                              {category}
+                            </TableCell>
+                            <TableCell>
+                              <code>{fn.display}</code>
+                            </TableCell>
+                          </TableRow>
+                        )),
+                    )}
+                  </TableBody>
+                </Table>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="supported-math-constants">
+              <AccordionTrigger className="text-muted-foreground">
+                <div className="flex items-center gap-x-2 font-normal">
+                  <PiIcon className="size-4" />
+                  Supported Math Constants
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <Table>
+                  <TableCaption>
+                    A list of supported math constants for custom wind velocity
+                    definitions.
+                  </TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Constant</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(SUPPORTED_MATH_CONSTANTS).flatMap(
+                      ([category, consts]) =>
+                        consts.map((c) => (
+                          <TableRow key={`const-${c}`}>
+                            <TableCell className="text-muted-foreground text-xs">
+                              {category}
+                            </TableCell>
+                            <TableCell>
+                              <code>{c}</code>
+                            </TableCell>
+                          </TableRow>
+                        )),
+                    )}
+                  </TableBody>
+                </Table>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
