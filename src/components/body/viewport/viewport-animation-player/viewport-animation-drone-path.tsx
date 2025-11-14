@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { extend, type ThreeElement } from "@react-three/fiber";
+import { DroneModel } from "@/components/body/viewport/viewport-animation-player/drone-model";
 import { Status as AnimationStatus } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
 
 extend({ Line_: THREE.Line });
@@ -13,7 +14,7 @@ declare module "@react-three/fiber" {
   }
 }
 
-type ViewPortAnimationDronePathProps = ThreeElements["mesh"] & {
+type ViewPortAnimationDronePathProps = ThreeElements["group"] & {
   onEnd?: () => void;
 };
 
@@ -39,7 +40,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   const setProgress = useSimulationStore.use.setAnimationProgress();
   const setMaxProgress = useSimulationStore.use.setAnimationMaxProgress();
 
-  const sphereRef = useRef<THREE.Mesh>(null!);
+  const droneRef = useRef<THREE.Group>(null!);
 
   const lineRef = useRef<THREE.Line>(null!);
   const lineGeoRef = useRef<THREE.BufferGeometry>(null!);
@@ -62,7 +63,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     endedRef.current = false;
     notifiedRef.current = false;
 
-    sphereRef.current.position.set(-x0, z0, y0);
+    droneRef.current.position.set(-x0, z0, y0);
 
     const total = ts[ts.length - 1] - ts[0];
     setProgress(0);
@@ -99,7 +100,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   ]);
 
   useFrame((_, delta) => {
-    if (!hasPath || !ts.length || !sphereRef.current) return;
+    if (!hasPath || !ts.length || !droneRef.current) return;
     if (endedRef.current || !playing) return;
 
     tRef.current += delta * animationSpeed;
@@ -111,7 +112,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
 
     if (elapsed >= total) {
       const last = ts.length - 1;
-      sphereRef.current.position.set(
+      droneRef.current.position.set(
         -1 * (xs[last] ?? 0),
         ys[last] ?? 0,
         zs[last] ?? 0,
@@ -139,7 +140,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     iRef.current = i;
     setAnimationStep(i);
 
-    sphereRef.current.position.set(-1 * (xs[i] ?? 0), ys[i] ?? 0, zs[i] ?? 0);
+    droneRef.current.position.set(-1 * (xs[i] ?? 0), ys[i] ?? 0, zs[i] ?? 0);
 
     if (lineGeoRef.current) {
       lineGeoRef.current.setDrawRange(0, i + 1);
@@ -148,10 +149,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
 
   return (
     <>
-      <mesh {...props} ref={sphereRef}>
-        <sphereGeometry args={[0.25, 32, 32]} />
-        <meshStandardMaterial color="#00ff00" />
-      </mesh>
+      <DroneModel {...props} ref={droneRef} />
       <line_ ref={lineRef} frustumCulled={false}>
         <bufferGeometry ref={lineGeoRef} />
         <lineBasicMaterial color="#00ff00" />
