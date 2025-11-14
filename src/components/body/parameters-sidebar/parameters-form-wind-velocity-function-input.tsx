@@ -19,6 +19,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   WindVelFuncPreset,
   WindVelFuncPresetValues,
 } from "@/types/simulation.type";
@@ -101,6 +110,15 @@ type ParametersFormWindVelocityFunctionInputProps = {
   ) => void;
 };
 
+const SUPPORTED_MATH_FUNCTIONS = {
+  Trigonometric: ["sin", "cos", "tan", "asin", "acos", "atan"],
+  Hyperbolic: ["sinh", "cosh", "tanh"],
+  "Exponential / Logarithmic": ["exp", "log", "log10"],
+  "Roots & Powers": ["sqrt", "pow"],
+  Miscellaneous: ["fabs", "floor", "ceil"],
+  "Optional Convenience": ["abs", "minimum", "maximum"],
+} as const;
+
 const ParametersFormWindVelocityFunctionInput = withForm({
   ...simulationConfigFormOpts,
   props: {} as ParametersFormWindVelocityFunctionInputProps,
@@ -108,7 +126,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
     return (
       <Item variant="outline" className="mb-1">
         <FieldGroup>
-          <div className="flex flex-col gap-2">
+          <div className="-mb-8 flex flex-col gap-2">
             <h1>3D Wind Velocity Function</h1>
             <p className="text-muted-foreground text-sm leading-normal font-normal">
               Use default presets or define your own wind Velocity function for
@@ -116,6 +134,38 @@ const ParametersFormWindVelocityFunctionInput = withForm({
             </p>
           </div>
           <Accordion type="single" collapsible>
+            <AccordionItem value="supported-math-functions">
+              <AccordionTrigger>Supported Math Functions</AccordionTrigger>
+              <AccordionContent>
+                <Table>
+                  <TableCaption>
+                    A list of supported math functions for custom wind velocity
+                    definitions.
+                  </TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Function</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(SUPPORTED_MATH_FUNCTIONS).map(
+                      ([category, functions]) =>
+                        functions.map((fn) => (
+                          <TableRow key={`${category}-${fn}`}>
+                            <TableCell className="text-muted-foreground text-xs">
+                              {category}
+                            </TableCell>
+                            <TableCell>
+                              <code>{fn}</code>
+                            </TableCell>
+                          </TableRow>
+                        )),
+                    )}
+                  </TableBody>
+                </Table>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="x-axis">
               <AccordionTrigger>
                 <div className="flex items-center gap-x-2">
@@ -160,7 +210,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                           <InputGroupAddon align="block-end">
                             <InputGroupText className="tabular-nums">
                               Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5*t).
+                              definition (e.g. 0.5 * t).
                             </InputGroupText>
                           </InputGroupAddon>
                         </InputGroup>
@@ -219,7 +269,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                           <InputGroupAddon align="block-end">
                             <InputGroupText className="tabular-nums">
                               Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5*t).
+                              definition (e.g. 0.5 * t).
                             </InputGroupText>
                           </InputGroupAddon>
                         </InputGroup>
@@ -276,7 +326,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                           <InputGroupAddon align="block-end">
                             <InputGroupText className="tabular-nums">
                               Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5*t).
+                              definition (e.g. 0.5 * t).
                             </InputGroupText>
                           </InputGroupAddon>
                         </InputGroup>
