@@ -10,6 +10,8 @@ import * as THREE from "three";
 import { useEffect, type JSX } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import type { GLTF } from "three-stdlib";
+import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { Status as AnimationStatus } from "./viewport-animation-controls";
 
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;
@@ -121,20 +123,31 @@ const DroneModel: React.FC<DroneModelProps> = ({ ref, ...props }) => {
     "/drone_animv1.glb",
   ) as unknown as GLTFResult;
   const { actions } = useAnimations(animations, ref);
+  const animationStatus = useSimulationStore.use.animationStatus();
 
   useEffect(() => {
     const action =
       actions["Deformation_JNT|Deformation_JNT|Take 001|BaseLayer"];
     if (!action) return;
 
-    action.reset();
-    action.timeScale = 0.5;
-    action.fadeIn(0.2).play();
+    if (animationStatus === AnimationStatus.Playing) {
+      action.paused = false;
+      action.timeScale = 0.8;
+      action.play();
+    }
+
+    if (animationStatus === AnimationStatus.Paused) {
+      action.paused = true;
+    }
+
+    if (animationStatus === AnimationStatus.Ended) {
+      action.stop();
+    }
 
     return () => {
-      action.fadeOut(0.2);
+      action.stop();
     };
-  }, [actions]);
+  }, [actions, animationStatus]);
 
   return (
     <group ref={ref} {...props} dispose={null}>
