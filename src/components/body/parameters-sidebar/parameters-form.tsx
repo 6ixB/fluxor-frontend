@@ -17,8 +17,8 @@ import { ParametersFormTimeStepInput } from "@/components/body/parameters-sideba
 import { ParametersFormStepsInput } from "@/components/body/parameters-sidebar/parameters-form-steps-input";
 import { ParametersFormDroneStartPositionInput } from "@/components/body/parameters-sidebar/parameters-form-drone-start-position-input";
 import {
+  ReverseWindVelFuncPresetValues,
   SimulationConfigDtoSchema,
-  WindVelFuncPreset,
   type FunctionPreset,
 } from "@/types/simulation.type";
 import { defaults } from "@/lib/defaults";
@@ -67,9 +67,9 @@ const ParametersForm: React.FC = () => {
   });
 
   const [functionPreset, setFunctionPreset] = useImmer<FunctionPreset>({
-    x: WindVelFuncPreset.ExponentialSinusoid,
-    y: WindVelFuncPreset.Sinusoid,
-    z: WindVelFuncPreset.Linear,
+    x: ReverseWindVelFuncPresetValues[defaults.simulationConfig.windVelFuncX],
+    y: ReverseWindVelFuncPresetValues[defaults.simulationConfig.windVelFuncY],
+    z: ReverseWindVelFuncPresetValues[defaults.simulationConfig.windVelFuncZ],
   });
 
   return (

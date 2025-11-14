@@ -57,6 +57,10 @@ const WindVelFuncPresetValues: Record<WindVelFuncPreset, string> = {
     "0.5 * t * sin(0.25 * pi * t + 0.125) * e**(0.1 * t) + 0.1",
 };
 
+const ReverseWindVelFuncPresetValues = Object.fromEntries(
+  Object.entries(WindVelFuncPresetValues).map(([key, val]) => [val, key]),
+) as Record<string, WindVelFuncPreset>;
+
 type SimulationConfigDto = z.infer<typeof SimulationConfigDtoSchema>;
 type SimulationResultEntity = z.infer<typeof SimulationResultEntitySchema>;
 
@@ -68,4 +72,5 @@ export {
   type FunctionPreset,
   WindVelFuncPreset,
   WindVelFuncPresetValues,
+  ReverseWindVelFuncPresetValues,
 };
