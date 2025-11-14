@@ -16,7 +16,9 @@ const Header: React.FC = () => {
           </span>
         </div>
         <div className="flex items-center justify-end gap-x-2">
-          <span className="text-muted-foreground text-xs">Built by 6ixB</span>
+          <span className="text-muted-foreground mr-4 text-xs">
+            Built by 6ixB
+          </span>
           <AppInformationDialog />
           <ModeToggle />
         </div>
