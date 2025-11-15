@@ -12,7 +12,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Item } from "@/components/ui/item";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DroneIcon, InfoIcon } from "lucide-react";
+import {
+  BrainIcon,
+  CirclePlayIcon,
+  DroneIcon,
+  InfoIcon,
+  ListChecksIcon,
+} from "lucide-react";
 import TeX from "@matejmazur/react-katex";
 import "katex/dist/katex.min.css";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
@@ -56,17 +62,26 @@ const AppInformationDialog = () => {
         </DialogHeader>
         <Tabs defaultValue="quickstart" className="-mb-1">
           <TabsList className="rounded-md">
-            <TabsTrigger value="quickstart" className="rounded-sm">
-              🚦Quick Start
+            <TabsTrigger
+              value="quickstart"
+              className="flex items-center gap-x-2 rounded-sm"
+            >
+              <CirclePlayIcon className="size-4" />
+              Quick Start
             </TabsTrigger>
-            <TabsTrigger value="features" className="rounded-sm">
-              ✨ Features
+            <TabsTrigger
+              value="features"
+              className="flex items-center gap-x-2 rounded-sm"
+            >
+              <ListChecksIcon className="size-4" />
+              Features
             </TabsTrigger>
             <TabsTrigger
               value="simulation-model-explanation"
-              className="rounded-sm"
+              className="flex items-center gap-x-2 rounded-sm"
             >
-              🧠 How It Works
+              <BrainIcon className="size-4" />
+              How It Works
             </TabsTrigger>
           </TabsList>
           <TabsContent value="quickstart">
@@ -78,29 +93,27 @@ const AppInformationDialog = () => {
                 </li>
                 <li>Set a time step for simulation precision.</li>
                 <li>
-                  Click <strong>Apply</strong> to run the simulation ▶️
+                  Click <strong>Apply</strong> to run the simulation.
                 </li>
-                <li>
-                  Use playback controls to scrub through the trajectory 🎮
-                </li>
+                <li>Use playback controls to scrub through the trajectory.</li>
               </ol>
             </Item>
           </TabsContent>
           <TabsContent value="features">
             <Item variant="outline">
               <ul className="text-muted-foreground list-disc space-y-1 pl-6 text-sm">
-                <li>Set the drone&apos;s 3D starting position and speed 🛰️</li>
-                <li>Adjust the time step to control numerical accuracy ⏱️</li>
-                <li>Watch real-time 3D trajectory animations 🎥</li>
-                <li>Inspect data through charts and time-series views 📊</li>
+                <li>Set the drone&apos;s 3D starting position and speed.</li>
+                <li>Adjust the time step to control numerical accuracy.</li>
+                <li>Watch real-time 3D trajectory animations.</li>
+                <li>Inspect data through charts and time-series views.</li>
                 <li>
                   Recreate scenarios from the paper: autonomous, non-autonomous,
-                  linear, periodic, and damped oscillation wind models 🌬️
+                  linear, periodic, and damped oscillation wind models.
                 </li>
                 <li>
                   Define your own&nbsp;
                   <strong>custom wind-velocity functions</strong> in all three
-                  spatial dimensions to simulate new or extreme environments 🌪️
+                  spatial dimensions to simulate new or extreme environments.
                 </li>
               </ul>
             </Item>

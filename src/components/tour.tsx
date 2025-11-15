@@ -47,8 +47,8 @@ interface TourProviderProps {
 const TourContext = createContext<TourContextType | null>(null);
 
 const PADDING = 16;
-const CONTENT_WIDTH = 300;
-const CONTENT_HEIGHT = 200;
+const CONTENT_WIDTH = 400;
+const CONTENT_HEIGHT = 300;
 
 function getElementPosition(id: string) {
   const element = document.getElementById(id);
@@ -399,10 +399,10 @@ const TourAlertDialog: React.FC<{
         </AlertDialogHeader>
         <div className="mt-6 space-y-3">
           <Button onClick={startTour} className="w-full">
-            Start Tour 🥳
+            Start Tour
           </Button>
           <Button onClick={handleSkip} variant="ghost" className="w-full">
-            Skip Tour 😞
+            Skip Tour
           </Button>
         </div>
       </AlertDialogContent>

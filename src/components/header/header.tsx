@@ -1,4 +1,9 @@
-import { DroneIcon } from "lucide-react";
+import {
+  DroneIcon,
+  FullscreenIcon,
+  InfoIcon,
+  SlidersHorizontalIcon,
+} from "lucide-react";
 import { AppInformationDialog } from "@/components/header/app-information-dialog";
 import { ModeToggle } from "@/components/header/mode-toggle";
 import { useEffect, useState } from "react";
@@ -10,7 +15,10 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🎛️ Simulation Config</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <SlidersHorizontalIcon className="size-4" />
+          Simulation Config
+        </h3>
         <p className="text-muted-foreground">
           Configure simulation parameters such as drone starting position,
           speed, simulation steps, time step, and wind velocities.
@@ -28,7 +36,10 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🎛️ Simulation Config</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <SlidersHorizontalIcon className="size-4" />
+          Simulation Config
+        </h3>
         <p className="text-muted-foreground">
           When you are satisfied with your configuration, click this apply
           button for the simulator to calculate the drone's flight path based on
@@ -43,10 +54,14 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🎥 Viewport</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <FullscreenIcon className="size-4" />
+          Viewport
+        </h3>
         <p className="text-muted-foreground">
-          To see the simulation animations, select the "Animation" tab and to
-          analyze simulation data charts select the "Charts" tab.
+          To see the simulation animations, select the{" "}
+          <strong>Animation</strong> tab and to analyze simulation data charts
+          select the <strong>Charts</strong> tab.
         </p>
       </div>
     ),
@@ -57,7 +72,10 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🎥 Viewport</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <FullscreenIcon className="size-4" />
+          Viewport
+        </h3>
         <p className="text-muted-foreground">
           To control the viewport camera and animation details refer to the this
           info panel.
@@ -71,7 +89,10 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🎥 Viewport</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <FullscreenIcon className="size-4" />
+          Viewport
+        </h3>
         <p className="text-muted-foreground">
           Start the animation, pause it, or adjust the playback speed using
           these animation playback controls.
@@ -85,15 +106,18 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">🚁 Initial Drone Goal</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <DroneIcon className="size-4" />
+          Drone Target
+        </h3>
         <p className="text-muted-foreground">
-          In case you don't know, the drone is a delivery drone trying to reach
-          the origin point (0, 0, 0) set as target goal indicated by the red
-          circle.
+          The red circle indicates the initial goal of the drone, set as the
+          delivery target located at the origin point.
         </p>
         <p className="text-muted-foreground">
-          Based on wind conditions, the drone may or may not reach this goal
-          during the simulation. Shown by the flight path line (trajectory).
+          Based on wind conditions, the drone may or may not reach this exact
+          target during the simulation. Shown by the drone's flight path in the
+          viewport.
         </p>
       </div>
     ),
@@ -104,7 +128,10 @@ const steps: TourStep[] = [
   {
     content: (
       <div className="flex flex-col gap-y-2 text-sm">
-        <h3 className="font-medium">❓ Help</h3>
+        <h3 className="flex items-center gap-x-2 font-medium">
+          <InfoIcon className="size-4" />
+          More Information
+        </h3>
         <p className="text-muted-foreground">
           For more information about the application, click on this icon to open
           the app information dialog.
@@ -112,9 +139,6 @@ const steps: TourStep[] = [
         <p className="text-muted-foreground">
           You can access this dialog anytime to revisit the app details and get
           assistance as needed.
-        </p>
-        <p className="text-muted-foreground">
-          End of Tour! Happy Simulating! 🚀
         </p>
       </div>
     ),
