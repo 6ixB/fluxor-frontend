@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { TourProvider } from "@/components/tour";
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ type ProvidersProps = {
 const Providers: React.FC<ProvidersProps> = ({ children }) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="fluxor-ui-theme">
-      {children}
+      <TourProvider>{children}</TourProvider>
     </ThemeProvider>
   );
 };

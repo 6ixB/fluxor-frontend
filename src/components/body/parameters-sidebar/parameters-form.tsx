@@ -26,6 +26,7 @@ import { runSimulation } from "@/api/simulation.api";
 import { useSimulationConfigForm } from "@/hooks/use-simulation-config-form";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { toast } from "sonner";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const ParametersForm: React.FC = () => {
   const setStartPos = useSimulationStore.use.setStartPos();
@@ -73,7 +74,10 @@ const ParametersForm: React.FC = () => {
   });
 
   return (
-    <Card className="flex h-full min-h-0 w-full flex-col border-0 bg-transparent p-0 sm:max-w-md">
+    <Card
+      id={TOUR_STEP_IDS.SIMULATION_CONFIG}
+      className="flex h-full min-h-0 w-full flex-col border-0 bg-transparent p-0 sm:max-w-md"
+    >
       <ScrollArea className="min-h-0 w-full flex-1 pt-6">
         <CardHeader className="mb-6">
           <CardTitle>Simulation Config</CardTitle>
@@ -109,7 +113,10 @@ const ParametersForm: React.FC = () => {
           </form>
         </CardContent>
       </ScrollArea>
-      <div className="flex flex-col gap-y-3 border-t border-neutral-200 py-6 dark:border-neutral-800">
+      <div
+        id={TOUR_STEP_IDS.APPLY_SIMULATION_CONFIG_BUTTON}
+        className="flex flex-col gap-y-3 border-t border-neutral-200 py-6 dark:border-neutral-800"
+      >
         <CardHeader>
           <CardTitle>Run Simulation</CardTitle>
           <CardDescription>

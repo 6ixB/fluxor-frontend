@@ -26,7 +26,12 @@ const ParametersFormStepsInput = withForm({
             field.state.meta.isTouched && !field.state.meta.isValid;
           return (
             <Field data-invalid={isInvalid}>
-              <FieldLabel htmlFor={field.name}>Steps</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                Steps&nbsp;
+                <span className="text-muted-foreground text-xs">
+                  (More steps → longer animation)
+                </span>
+              </FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}

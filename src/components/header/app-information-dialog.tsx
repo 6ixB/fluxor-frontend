@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -12,21 +11,24 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Item } from "@/components/ui/item";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DroneIcon, InfoIcon } from "lucide-react";
 import TeX from "@matejmazur/react-katex";
 import "katex/dist/katex.min.css";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const AppInformationDialog = () => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    setOpen(true);
-  }, []);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="App information">
+        <Button
+          id={TOUR_STEP_IDS.APP_INFORMATION_DIALOG}
+          variant="ghost"
+          size="icon"
+          aria-label="App information"
+        >
           <InfoIcon />
         </Button>
       </DialogTrigger>
@@ -34,7 +36,7 @@ const AppInformationDialog = () => {
         <DialogHeader className="-mb-1">
           <DialogTitle className="flex items-center text-2xl font-semibold">
             <DroneIcon />
-            &nbsp;Welcome to Fluxor 👋
+            &nbsp;Fluxor
           </DialogTitle>
           <DialogDescription>
             Fluxor is an interactive <strong>3D simulation environment</strong>
@@ -52,7 +54,7 @@ const AppInformationDialog = () => {
             &nbsp;by Shiven Hu.
           </DialogDescription>
         </DialogHeader>
-        <Tabs defaultValue="quickstart" className="-mb-3">
+        <Tabs defaultValue="quickstart" className="-mb-1">
           <TabsList className="rounded-md">
             <TabsTrigger value="quickstart" className="rounded-sm">
               🚦Quick Start
@@ -137,12 +139,20 @@ const AppInformationDialog = () => {
             </Item>
           </TabsContent>
         </Tabs>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button type="button" className="mt-2">
-              Start Exploring! 🚀
-            </Button>
-          </DialogClose>
+        <DialogFooter className="text-muted-foreground flex items-center text-xs">
+          Built by&nbsp;
+          <a
+            href="https://github.com/6ixB"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-primary font-medium underline"
+          >
+            6ixB
+          </a>
+          <Avatar>
+            <AvatarImage src="https://avatars.githubusercontent.com/u/124480418?v=4" />
+            <AvatarFallback>6xiB</AvatarFallback>
+          </Avatar>
         </DialogFooter>
       </DialogContent>
     </Dialog>

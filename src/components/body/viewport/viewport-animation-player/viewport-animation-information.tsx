@@ -1,13 +1,17 @@
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { Kbd } from "@/components/ui/kbd";
 import { MousePointerClickIcon } from "lucide-react";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const ViewPortAnimationInformation: React.FC = () => {
   const animationStep = useSimulationStore.use.animationStep();
   const droneSpeed = useSimulationStore.use.bs();
 
   return (
-    <div className="absolute top-4 right-4">
+    <div
+      id={TOUR_STEP_IDS.VIEWPORT_ANIMATION_INFORMATION}
+      className="absolute top-4 right-4"
+    >
       <div className="bg-foreground/5 flex w-80 flex-col items-start justify-center gap-y-2 rounded-lg p-4 select-none">
         <div className="text-muted-foreground flex items-center gap-x-2">
           <Kbd className="size-8">

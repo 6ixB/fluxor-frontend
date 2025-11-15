@@ -15,6 +15,7 @@ import { ViewPortAnimationFreeCam } from "@/components/body/viewport/viewport-an
 import { ViewPortAnimationDronePath } from "@/components/body/viewport/viewport-animation-player/viewport-animation-drone-path";
 import { ViewPortAnimationTarget } from "@/components/body/viewport/viewport-animation-player/viewport-animation-target";
 import { ViewPortAnimationInformation } from "@/components/body/viewport/viewport-animation-player/viewport-animation-information";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const cameraPos: [number, number, number] = [5, 5, 5];
 const cameraLookAtPos: [number, number, number] = [0, 0, 0];
@@ -43,7 +44,10 @@ const ViewPortAnimationPlayer: React.FC = () => {
   };
 
   return (
-    <div className="relative h-full min-h-0 w-full min-w-0">
+    <div
+      id={TOUR_STEP_IDS.SIMULATION_DRONE_GOAL}
+      className="relative h-full min-h-0 w-full min-w-0"
+    >
       <Canvas
         shadows
         onCreated={({ gl }) => {
