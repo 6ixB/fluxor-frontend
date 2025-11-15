@@ -77,6 +77,9 @@ type SimulationState = {
 
   animationSpeed: number;
   setAnimationSpeed: (value: number) => void;
+
+  canvasReady: boolean;
+  setCanvasReady: (value: boolean) => void;
 };
 
 export { type SimulationState };

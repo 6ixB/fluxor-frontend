@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { Canvas } from "@react-three/fiber";
 import {
@@ -16,6 +16,15 @@ import { ViewPortAnimationDronePath } from "@/components/body/viewport/viewport-
 import { ViewPortAnimationTarget } from "@/components/body/viewport/viewport-animation-player/viewport-animation-target";
 import { ViewPortAnimationInformation } from "@/components/body/viewport/viewport-animation-player/viewport-animation-information";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import {
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
+import { Spinner } from "@/components/ui/spinner";
 
 const cameraPos: [number, number, number] = [5, 5, 5];
 const cameraLookAtPos: [number, number, number] = [0, 0, 0];
@@ -25,6 +34,18 @@ const ViewPortAnimationPlayer: React.FC = () => {
   const setAnimationStatus = useSimulationStore.use.setAnimationStatus();
   const setAnimationResetKey = useSimulationStore.use.setAnimationResetKey();
   const setAnimationStep = useSimulationStore.use.setAnimationStep();
+  const setCanvasReady = useSimulationStore.use.setCanvasReady();
+  const canvasReady = useSimulationStore.use.canvasReady();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!canvasReady) {
+      setOpen(true);
+      return;
+    }
+
+    setOpen(false);
+  }, [canvasReady]);
 
   const focusApiRef = useRef<FocusAPI | null>(null);
   const handleFocus = useCallback(() => {
@@ -48,11 +69,28 @@ const ViewPortAnimationPlayer: React.FC = () => {
       id={TOUR_STEP_IDS.SIMULATION_DRONE_GOAL}
       className="relative h-full min-h-0 w-full min-w-0"
     >
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <VisuallyHidden>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="sr-only">
+              Loading viewport...
+            </AlertDialogTitle>
+            <AlertDialogDescription className="sr-only">
+              The viewport is loading. Please wait...
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+        </VisuallyHidden>
+        <AlertDialogContent className="flex items-center justify-center border-none bg-transparent shadow-none outline-none">
+          <Spinner className="size-4" />
+          Loading viewport...
+        </AlertDialogContent>
+      </AlertDialog>
       <Canvas
         shadows
         onCreated={({ gl }) => {
           gl.domElement.id = "viewport-canvas";
           gl.toneMappingExposure = 1.25;
+          setCanvasReady(true);
         }}
         gl={{ powerPreference: "low-power" }}
         camera={{ position: cameraPos }}

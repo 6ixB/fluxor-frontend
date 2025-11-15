@@ -1,3 +1,4 @@
+import { useSimulationStore } from "@/hooks/use-simulation-store";
 import {
   DroneIcon,
   FullscreenIcon,
@@ -149,17 +150,20 @@ const steps: TourStep[] = [
 ];
 
 const Header: React.FC = () => {
+  const canvasReady = useSimulationStore.use.canvasReady();
   const [openTour, setOpenTour] = useState(false);
   const { setSteps } = useTour();
 
   useEffect(() => {
+    if (!canvasReady) return;
+
     setSteps(steps);
     const timer = setTimeout(() => {
       setOpenTour(true);
-    }, 100);
+    }, 250);
 
     return () => clearTimeout(timer);
-  }, [setSteps]);
+  }, [setSteps, canvasReady]);
 
   return (
     <>

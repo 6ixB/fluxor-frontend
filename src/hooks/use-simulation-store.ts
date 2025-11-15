@@ -91,6 +91,12 @@ const useSimulationStoreBase = create<SimulationState>()(
         set((state) => {
           state.animationSpeed = value;
         }),
+
+      canvasReady: false,
+      setCanvasReady: (value) =>
+        set((state) => {
+          state.canvasReady = value;
+        }),
     };
   }),
 );
