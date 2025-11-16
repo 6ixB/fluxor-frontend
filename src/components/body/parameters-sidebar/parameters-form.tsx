@@ -41,11 +41,7 @@ const ParametersForm: React.FC = () => {
       onSubmit: SimulationConfigDtoSchema,
     },
     onSubmit: async ({ value }) => {
-      const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
       const submitPromise = (async () => {
-        await delay(250);
-
         const simulationResult = await runSimulation(value);
         const { x0, y0, z0 } = value;
 
@@ -60,7 +56,7 @@ const ParametersForm: React.FC = () => {
       toast.promise(submitPromise, {
         loading: "Applying...",
         success: "Simulation configuration has been applied!",
-        error: "Error",
+        error: "Something went wrong :(",
       });
 
       return submitPromise;
