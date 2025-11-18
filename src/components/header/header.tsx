@@ -5,7 +5,7 @@ import {
   InfoIcon,
   SlidersHorizontalIcon,
 } from "lucide-react";
-import { AppInformationDialog } from "@/components/header/app-information-dialog";
+import { InformationDialog } from "@/components/header/information-dialog";
 import { ThemeModeToggle } from "@/components/header/theme-mode-toggle";
 import { useEffect, useState } from "react";
 import { useTour } from "@/hooks/use-tour";
@@ -177,7 +177,7 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-x-2">
-            <AppInformationDialog />
+            <InformationDialog />
             <ThemeModeToggle />
           </div>
         </div>

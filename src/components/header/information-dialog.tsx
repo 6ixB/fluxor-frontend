@@ -23,7 +23,7 @@ import TeX from "@matejmazur/react-katex";
 import "katex/dist/katex.min.css";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
-const AppInformationDialog = () => {
+const InformationDialog = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -172,4 +172,4 @@ const AppInformationDialog = () => {
   );
 };
 
-export { AppInformationDialog };
+export { InformationDialog };
