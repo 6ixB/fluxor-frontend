@@ -7,7 +7,7 @@ const SimulationConfigDtoSchema = z.object({
   droneSpeed: z
     .number()
     .min(0.0, "Drone speed must be at least 0.0 m/s.")
-    .max(100.0, "Drone speed must be at most 10.0 m/s."),
+    .max(20.0, "Drone speed must be at most 20.0 m/s."),
   windVelFuncX: z.string().nonempty(),
   windVelFuncY: z.string().nonempty(),
   windVelFuncZ: z.string().nonempty(),
