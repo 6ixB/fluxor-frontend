@@ -116,7 +116,7 @@ const SimulationConfigForm: React.FC = () => {
         <CardHeader>
           <CardTitle>Run Simulation</CardTitle>
           <CardDescription>
-            If you're done setting youre simulation config, click apply to run
+            If you're done setting your simulation config, click apply to run
             the simulation.
           </CardDescription>
         </CardHeader>
