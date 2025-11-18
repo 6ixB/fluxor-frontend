@@ -11,11 +11,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Field, FieldGroup } from "@/components/ui/field";
-import { ParametersFormDroneSpeedInput } from "@/components/body/parameters-sidebar/parameters-form-drone-speed-input";
-import { ParametersFormWindVelocityFunctionInput } from "@/components/body/parameters-sidebar/parameters-form-wind-velocity-function-input";
-import { ParametersFormTimeStepInput } from "@/components/body/parameters-sidebar/parameters-form-time-step-input";
-import { ParametersFormStepsInput } from "@/components/body/parameters-sidebar/parameters-form-steps-input";
-import { ParametersFormDroneStartPositionInput } from "@/components/body/parameters-sidebar/parameters-form-drone-start-position-input";
+import { SimulationConfigFormDroneSpeedInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-drone-speed-input";
+import { SimulationConfigFormWindVelocityFunctionInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-wind-velocity-function-input";
+import { SimulationConfigFormTimeStepInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-time-step-input";
+import { SimulationConfigFormStepsInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-steps-input";
+import { SimulationConfigFormDroneStartPositionInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-drone-start-position-input";
 import {
   ReverseWindVelFuncPresetValues,
   SimulationConfigDtoSchema,
@@ -28,7 +28,7 @@ import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { toast } from "sonner";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
-const ParametersForm: React.FC = () => {
+const SimulationConfigForm: React.FC = () => {
   const setStartPos = useSimulationStore.use.setStartPos();
   const setAll = useSimulationStore.use.setAll();
 
@@ -93,15 +93,15 @@ const ParametersForm: React.FC = () => {
           >
             <FieldGroup>
               <Item variant="outline">
-                <ParametersFormDroneStartPositionInput form={form} />
-                <ParametersFormDroneSpeedInput form={form} />
+                <SimulationConfigFormDroneStartPositionInput form={form} />
+                <SimulationConfigFormDroneSpeedInput form={form} />
               </Item>
               <Item variant="outline">
-                <ParametersFormTimeStepInput form={form} />
-                <ParametersFormStepsInput form={form} />
+                <SimulationConfigFormTimeStepInput form={form} />
+                <SimulationConfigFormStepsInput form={form} />
               </Item>
             </FieldGroup>
-            <ParametersFormWindVelocityFunctionInput
+            <SimulationConfigFormWindVelocityFunctionInput
               form={form}
               functionPreset={functionPreset}
               setFunctionPreset={setFunctionPreset}
@@ -150,4 +150,4 @@ const ParametersForm: React.FC = () => {
   );
 };
 
-export { ParametersForm };
+export { SimulationConfigForm };

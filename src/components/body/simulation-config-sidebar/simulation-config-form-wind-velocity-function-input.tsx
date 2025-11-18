@@ -47,7 +47,7 @@ const Axis = {
 
 type Axis = (typeof Axis)[keyof typeof Axis];
 
-type ParametersFormWindVelocityFunctionInputFunctionPresetSelectProps = {
+type SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelectProps = {
   axis: Axis;
   functionPreset: FunctionPreset;
   setFunctionPreset: (
@@ -57,38 +57,40 @@ type ParametersFormWindVelocityFunctionInputFunctionPresetSelectProps = {
 
 type WindVelFunc = "windVelFuncX" | "windVelFuncY" | "windVelFuncZ";
 
-const ParametersFormWindVelocityFunctionInputFunctionPresetSelect = withForm({
-  ...simulationConfigFormOpts,
-  props: {} as ParametersFormWindVelocityFunctionInputFunctionPresetSelectProps,
-  render: ({ form, axis, functionPreset, setFunctionPreset }) => {
-    return (
-      <Select
-        value={functionPreset[axis]?.toString()}
-        onValueChange={(value: WindVelFuncPreset) => {
-          setFunctionPreset((draft) => {
-            draft[axis] = value;
-          });
-          form.setFieldValue(
-            `windVelFunc${axis.toUpperCase()}` as WindVelFunc,
-            WindVelFuncPresetValues[value],
-          );
-        }}
-      >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Function Preset" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={WindVelFuncPreset.Linear}>Linear</SelectItem>
-          <SelectItem value={WindVelFuncPreset.Sinusoid}>Sinusoid</SelectItem>
-          <SelectItem value={WindVelFuncPreset.ExponentialSinusoid}>
-            Exponential Sinusoid
-          </SelectItem>
-          <SelectItem value={WindVelFuncPreset.Custom}>Custom</SelectItem>
-        </SelectContent>
-      </Select>
-    );
-  },
-});
+const SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect =
+  withForm({
+    ...simulationConfigFormOpts,
+    props:
+      {} as SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelectProps,
+    render: ({ form, axis, functionPreset, setFunctionPreset }) => {
+      return (
+        <Select
+          value={functionPreset[axis]?.toString()}
+          onValueChange={(value: WindVelFuncPreset) => {
+            setFunctionPreset((draft) => {
+              draft[axis] = value;
+            });
+            form.setFieldValue(
+              `windVelFunc${axis.toUpperCase()}` as WindVelFunc,
+              WindVelFuncPresetValues[value],
+            );
+          }}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Function Preset" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={WindVelFuncPreset.Linear}>Linear</SelectItem>
+            <SelectItem value={WindVelFuncPreset.Sinusoid}>Sinusoid</SelectItem>
+            <SelectItem value={WindVelFuncPreset.ExponentialSinusoid}>
+              Exponential Sinusoid
+            </SelectItem>
+            <SelectItem value={WindVelFuncPreset.Custom}>Custom</SelectItem>
+          </SelectContent>
+        </Select>
+      );
+    },
+  });
 
 const listenForFunctionDefinitionChanges = (
   value: string,
@@ -104,7 +106,7 @@ const listenForFunctionDefinitionChanges = (
   }
 };
 
-type ParametersFormWindVelocityFunctionInputProps = {
+type SimulationConfigFormWindVelocityFunctionInputProps = {
   functionPreset: FunctionPreset;
   setFunctionPreset: (
     value: (draft: FunctionPreset) => void | FunctionPreset,
@@ -151,9 +153,9 @@ const SUPPORTED_MATH_CONSTANTS = {
   Constants: ["pi", "e"],
 } as const;
 
-const ParametersFormWindVelocityFunctionInput = withForm({
+const SimulationConfigFormWindVelocityFunctionInput = withForm({
   ...simulationConfigFormOpts,
-  props: {} as ParametersFormWindVelocityFunctionInputProps,
+  props: {} as SimulationConfigFormWindVelocityFunctionInputProps,
   render: ({ form, functionPreset, setFunctionPreset }) => {
     return (
       <Item variant="outline" className="mb-1">
@@ -189,7 +191,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
-                        <ParametersFormWindVelocityFunctionInputFunctionPresetSelect
+                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
                           form={form}
                           axis={Axis.X}
                           functionPreset={functionPreset}
@@ -248,7 +250,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
-                        <ParametersFormWindVelocityFunctionInputFunctionPresetSelect
+                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
                           form={form}
                           axis={Axis.Y}
                           functionPreset={functionPreset}
@@ -305,7 +307,7 @@ const ParametersFormWindVelocityFunctionInput = withForm({
                       field.state.meta.isTouched && !field.state.meta.isValid;
                     return (
                       <Field data-invalid={isInvalid}>
-                        <ParametersFormWindVelocityFunctionInputFunctionPresetSelect
+                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
                           form={form}
                           axis={Axis.Z}
                           functionPreset={functionPreset}
@@ -420,4 +422,4 @@ const ParametersFormWindVelocityFunctionInput = withForm({
   },
 });
 
-export { ParametersFormWindVelocityFunctionInput };
+export { SimulationConfigFormWindVelocityFunctionInput };

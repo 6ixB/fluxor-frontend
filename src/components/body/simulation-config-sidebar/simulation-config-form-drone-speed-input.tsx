@@ -1,9 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -15,18 +10,18 @@ import {
   withForm,
 } from "@/hooks/use-simulation-config-form";
 
-const ParametersFormTimeStepInput = withForm({
+const SimulationConfigFormDroneSpeedInput = withForm({
   ...simulationConfigFormOpts,
   render: ({ form }) => {
     return (
       <form.Field
-        name="timeStep"
+        name="droneSpeed"
         children={(field) => {
           const isInvalid =
             field.state.meta.isTouched && !field.state.meta.isValid;
           return (
             <Field data-invalid={isInvalid}>
-              <FieldLabel htmlFor={field.name}>Time Step</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Drone Speed</FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
@@ -37,20 +32,15 @@ const ParametersFormTimeStepInput = withForm({
                     field.handleChange(Number(e.target.value ?? 0))
                   }
                   aria-invalid={isInvalid}
-                  placeholder="Enter a number e.g. 0.001 s"
+                  placeholder="Enter a number e.g. 5.0 m/s"
                   autoComplete="off"
                   type="number"
-                  step={1}
+                  step={0.1}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText>seconds</InputGroupText>
+                  <InputGroupText>meters per second</InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-              <FieldDescription>
-                The time step determines how much simulation time passes between
-                each RK4 update. Smaller values improve accuracy but increase
-                computation time.
-              </FieldDescription>
               {isInvalid && <FieldError errors={field.state.meta.errors} />}
             </Field>
           );
@@ -60,4 +50,4 @@ const ParametersFormTimeStepInput = withForm({
   },
 });
 
-export { ParametersFormTimeStepInput };
+export { SimulationConfigFormDroneSpeedInput };

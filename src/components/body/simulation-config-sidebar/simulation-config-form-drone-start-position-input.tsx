@@ -10,7 +10,7 @@ import {
   withForm,
 } from "@/hooks/use-simulation-config-form";
 
-const ParametersFormDroneStartPositionInput = withForm({
+const SimulationConfigFormDroneStartPositionInput = withForm({
   ...simulationConfigFormOpts,
   render: ({ form }) => {
     return (
@@ -123,4 +123,4 @@ const ParametersFormDroneStartPositionInput = withForm({
   },
 });
 
-export { ParametersFormDroneStartPositionInput };
+export { SimulationConfigFormDroneStartPositionInput };

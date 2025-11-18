@@ -1,10 +1,10 @@
-import { ParametersSidebar } from "@/components/body/parameters-sidebar/parameters-sidebar";
+import { SimulationConfigSidebar } from "@/components/body/simulation-config-sidebar/simulation-config-sidebar";
 import { ViewPort } from "@/components/body/viewport/viewport";
 
 const Body: React.FC = () => {
   return (
     <div className="flex h-full w-full flex-1 overflow-y-hidden">
-      <ParametersSidebar />
+      <SimulationConfigSidebar />
       <ViewPort />
     </div>
   );

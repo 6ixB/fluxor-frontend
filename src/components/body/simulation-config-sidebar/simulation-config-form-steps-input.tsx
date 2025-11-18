@@ -1,4 +1,9 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -10,18 +15,23 @@ import {
   withForm,
 } from "@/hooks/use-simulation-config-form";
 
-const ParametersFormDroneSpeedInput = withForm({
+const SimulationConfigFormStepsInput = withForm({
   ...simulationConfigFormOpts,
   render: ({ form }) => {
     return (
       <form.Field
-        name="droneSpeed"
+        name="steps"
         children={(field) => {
           const isInvalid =
             field.state.meta.isTouched && !field.state.meta.isValid;
           return (
             <Field data-invalid={isInvalid}>
-              <FieldLabel htmlFor={field.name}>Drone Speed</FieldLabel>
+              <FieldLabel htmlFor={field.name}>
+                Steps&nbsp;
+                <span className="text-muted-foreground text-xs">
+                  (More steps → longer animation)
+                </span>
+              </FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
@@ -35,12 +45,16 @@ const ParametersFormDroneSpeedInput = withForm({
                   placeholder="Enter a number e.g. 5.0 m/s"
                   autoComplete="off"
                   type="number"
-                  step={0.1}
+                  step={1}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText>meters per second</InputGroupText>
+                  <InputGroupText>steps</InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
+              <FieldDescription>
+                How many RK4 updates to perform. Each step moves the simulation
+                forward by one time step.
+              </FieldDescription>
               {isInvalid && <FieldError errors={field.state.meta.errors} />}
             </Field>
           );
@@ -50,4 +64,4 @@ const ParametersFormDroneSpeedInput = withForm({
   },
 });
 
-export { ParametersFormDroneSpeedInput };
+export { SimulationConfigFormStepsInput };

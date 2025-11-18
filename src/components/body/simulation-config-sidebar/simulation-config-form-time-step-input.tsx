@@ -15,23 +15,18 @@ import {
   withForm,
 } from "@/hooks/use-simulation-config-form";
 
-const ParametersFormStepsInput = withForm({
+const SimulationConfigFormTimeStepInput = withForm({
   ...simulationConfigFormOpts,
   render: ({ form }) => {
     return (
       <form.Field
-        name="steps"
+        name="timeStep"
         children={(field) => {
           const isInvalid =
             field.state.meta.isTouched && !field.state.meta.isValid;
           return (
             <Field data-invalid={isInvalid}>
-              <FieldLabel htmlFor={field.name}>
-                Steps&nbsp;
-                <span className="text-muted-foreground text-xs">
-                  (More steps → longer animation)
-                </span>
-              </FieldLabel>
+              <FieldLabel htmlFor={field.name}>Time Step</FieldLabel>
               <InputGroup>
                 <InputGroupInput
                   id={field.name}
@@ -42,18 +37,19 @@ const ParametersFormStepsInput = withForm({
                     field.handleChange(Number(e.target.value ?? 0))
                   }
                   aria-invalid={isInvalid}
-                  placeholder="Enter a number e.g. 5.0 m/s"
+                  placeholder="Enter a number e.g. 0.001 s"
                   autoComplete="off"
                   type="number"
                   step={1}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText>steps</InputGroupText>
+                  <InputGroupText>seconds</InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
               <FieldDescription>
-                How many RK4 updates to perform. Each step moves the simulation
-                forward by one time step.
+                The time step determines how much simulation time passes between
+                each RK4 update. Smaller values improve accuracy but increase
+                computation time.
               </FieldDescription>
               {isInvalid && <FieldError errors={field.state.meta.errors} />}
             </Field>
@@ -64,4 +60,4 @@ const ParametersFormStepsInput = withForm({
   },
 });
 
-export { ParametersFormStepsInput };
+export { SimulationConfigFormTimeStepInput };
