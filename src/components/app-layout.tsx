@@ -1,5 +1,5 @@
 import { Providers } from "@/components/providers/providers";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 type AppLayoutProps = {
   children: React.ReactNode;
