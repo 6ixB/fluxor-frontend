@@ -10,14 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { FocusIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
-
-const Status = {
-  Paused: "paused",
-  Playing: "playing",
-  Ended: "ended",
-} as const;
-
-type Status = (typeof Status)[keyof typeof Status];
+import { AnimationStatus } from "@/types/simulation.type";
 
 type ViewPortAnimationControlsProps = {
   onPlay: () => void;
@@ -58,7 +51,7 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
     >
       <Card
         className={`bg-background w-xl rounded-lg px-0 py-2 transition-opacity duration-300 ease-in-out ${
-          animationStatus === Status.Playing
+          animationStatus === AnimationStatus.Playing
             ? "opacity-50 hover:opacity-100"
             : "opacity-100 hover:opacity-100"
         } `}
@@ -72,21 +65,25 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
             className="mt-4"
           />
           <div className="flex items-center justify-center">
-            {animationStatus !== Status.Ended && (
+            {animationStatus !== AnimationStatus.Ended && (
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={
-                      animationStatus === Status.Paused ? onPlay : onPause
+                      animationStatus === AnimationStatus.Paused
+                        ? onPlay
+                        : onPause
                     }
                     variant="ghost"
                     size="icon"
                     disabled={!playable}
                     aria-label={
-                      animationStatus === Status.Paused ? "Play" : "Pause"
+                      animationStatus === AnimationStatus.Paused
+                        ? "Play"
+                        : "Pause"
                     }
                   >
-                    {animationStatus === Status.Paused ? (
+                    {animationStatus === AnimationStatus.Paused ? (
                       <PlayIcon />
                     ) : (
                       <PauseIcon />
@@ -94,7 +91,7 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  {animationStatus === Status.Paused ? (
+                  {animationStatus === AnimationStatus.Paused ? (
                     <p>Play animation</p>
                   ) : (
                     <p>Pause animation</p>
@@ -140,4 +137,4 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   );
 };
 
-export { Status, ViewPortAnimationControls };
+export { ViewPortAnimationControls };

@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { AnimationStatus } from "@/types/simulation.type";
 import { Canvas } from "@react-three/fiber";
 import {
   ViewportFocusApi,
   type FocusAPI,
 } from "@/components/body/viewport/viewport-animation-player/viewport-animation-focus-api";
-import {
-  Status,
-  ViewPortAnimationControls,
-} from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
+import { ViewPortAnimationControls } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
 import { Grid } from "@react-three/drei";
 import { ViewPortAnimationLights } from "@/components/body/viewport/viewport-animation-player/viewport-animation-lights";
 import { ViewPortAnimationFreeCam } from "@/components/body/viewport/viewport-animation-player/viewport-animation-free-cam";
@@ -53,14 +51,14 @@ const ViewPortAnimationPlayer: React.FC = () => {
   }, []);
 
   const handleAnimationEnd = useCallback(
-    () => setAnimationStatus(Status.Ended),
+    () => setAnimationStatus(AnimationStatus.Ended),
     [setAnimationStatus],
   );
-  const handleAnimationPlay = () => setAnimationStatus(Status.Playing);
-  const handleAnimationPause = () => setAnimationStatus(Status.Paused);
+  const handleAnimationPlay = () => setAnimationStatus(AnimationStatus.Playing);
+  const handleAnimationPause = () => setAnimationStatus(AnimationStatus.Paused);
   const handleAnimationReplay = () => {
     setAnimationResetKey(animationResetKey + 1);
-    setAnimationStatus(Status.Paused);
+    setAnimationStatus(AnimationStatus.Paused);
     setAnimationStep(0);
   };
 

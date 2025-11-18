@@ -64,6 +64,14 @@ const ReverseWindVelFuncPresetValues = Object.fromEntries(
 type SimulationConfigDto = z.infer<typeof SimulationConfigDtoSchema>;
 type SimulationResultEntity = z.infer<typeof SimulationResultEntitySchema>;
 
+const AnimationStatus = {
+  Paused: "paused",
+  Playing: "playing",
+  Ended: "ended",
+} as const;
+
+type AnimationStatus = (typeof AnimationStatus)[keyof typeof AnimationStatus];
+
 export {
   SimulationConfigDtoSchema,
   SimulationResultEntitySchema,
@@ -73,4 +81,5 @@ export {
   WindVelFuncPreset,
   WindVelFuncPresetValues,
   ReverseWindVelFuncPresetValues,
+  AnimationStatus,
 };

@@ -4,7 +4,7 @@ import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { extend, type ThreeElement } from "@react-three/fiber";
 import { DroneModel } from "@/components/body/viewport/viewport-animation-player/drone-model";
-import { Status as AnimationStatus } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
+import { AnimationStatus } from "@/types/simulation.type";
 
 extend({ Line_: THREE.Line });
 

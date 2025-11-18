@@ -11,7 +11,7 @@ import { useEffect, type JSX } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import type { GLTF } from "three-stdlib";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
-import { Status as AnimationStatus } from "./viewport-animation-controls";
+import { AnimationStatus } from "@/types/simulation.type";
 
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;

@@ -1,4 +1,4 @@
-import type { Status as AnimationStatus } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
+import { AnimationStatus } from "@/types/simulation.type";
 import type { SimulationResultEntity } from "@/types/simulation.type";
 
 type SimulationState = {

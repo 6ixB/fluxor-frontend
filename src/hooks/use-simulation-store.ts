@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import type { SimulationState } from "@/types/hooks/use-simulation-store.type";
-import { Status as AnimationStatus } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
 import { createSelectors } from "@/lib/utils";
+import { AnimationStatus } from "@/types/simulation.type";
 
 const keys = ["ts", "xs", "ys", "zs", "bxs", "bys", "bzs", "bs"] as const;
 type Key = (typeof keys)[number];
