@@ -1,3 +1,4 @@
+import { useStore } from "@tanstack/react-form";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import {
   InputGroup,
@@ -28,6 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  ReverseWindVelFuncPresetValues,
   WindVelFuncPreset,
   WindVelFuncPresetValues,
 } from "@/types/simulation.type";
@@ -38,6 +40,7 @@ import {
 } from "@/hooks/use-simulation-config-form";
 import { Item } from "@/components/ui/item";
 import { PiIcon, VariableIcon } from "lucide-react";
+import { useEffect } from "react";
 
 const Axis = {
   X: "x",
@@ -92,20 +95,6 @@ const SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect =
     },
   });
 
-const listenForFunctionDefinitionChanges = (
-  value: string,
-  axis: Axis,
-  setFunctionPreset: (
-    value: (draft: FunctionPreset) => void | FunctionPreset,
-  ) => void,
-) => {
-  if (!Object.values(WindVelFuncPresetValues).includes(value)) {
-    setFunctionPreset((draft) => {
-      draft[axis] = WindVelFuncPreset.Custom;
-    });
-  }
-};
-
 type SimulationConfigFormWindVelocityFunctionInputProps = {
   functionPreset: FunctionPreset;
   setFunctionPreset: (
@@ -157,6 +146,43 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
   ...simulationConfigFormOpts,
   props: {} as SimulationConfigFormWindVelocityFunctionInputProps,
   render: ({ form, functionPreset, setFunctionPreset }) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const windVelFuncX = useStore(
+      form.store,
+      (state) => state.values.windVelFuncX,
+    );
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const windVelFuncY = useStore(
+      form.store,
+      (state) => state.values.windVelFuncY,
+    );
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const windVelFuncZ = useStore(
+      form.store,
+      (state) => state.values.windVelFuncZ,
+    );
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      const windVelFuncXPreset =
+        ReverseWindVelFuncPresetValues[windVelFuncX] ??
+        WindVelFuncPreset.Custom;
+
+      const windVelFuncYPreset =
+        ReverseWindVelFuncPresetValues[windVelFuncY] ??
+        WindVelFuncPreset.Custom;
+
+      const windVelFuncZPreset =
+        ReverseWindVelFuncPresetValues[windVelFuncZ] ??
+        WindVelFuncPreset.Custom;
+
+      setFunctionPreset((draft) => {
+        draft.x = windVelFuncXPreset;
+        draft.y = windVelFuncYPreset;
+        draft.z = windVelFuncZPreset;
+      });
+    }, [setFunctionPreset, windVelFuncX, windVelFuncY, windVelFuncZ]);
+
     return (
       <Item variant="outline" className="mb-1">
         <FieldGroup>
@@ -178,14 +204,6 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
               <AccordionContent>
                 <form.Field
                   name="windVelFuncX"
-                  listeners={{
-                    onChange: ({ value }) =>
-                      listenForFunctionDefinitionChanges(
-                        value,
-                        Axis.X,
-                        setFunctionPreset,
-                      ),
-                  }}
                   children={(field) => {
                     const isInvalid =
                       field.state.meta.isTouched && !field.state.meta.isValid;
@@ -237,14 +255,6 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
               <AccordionContent>
                 <form.Field
                   name="windVelFuncY"
-                  listeners={{
-                    onChange: ({ value }) =>
-                      listenForFunctionDefinitionChanges(
-                        value,
-                        Axis.Y,
-                        setFunctionPreset,
-                      ),
-                  }}
                   children={(field) => {
                     const isInvalid =
                       field.state.meta.isTouched && !field.state.meta.isValid;
@@ -294,14 +304,6 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
               <AccordionContent>
                 <form.Field
                   name="windVelFuncZ"
-                  listeners={{
-                    onChange: ({ value }) =>
-                      listenForFunctionDefinitionChanges(
-                        value,
-                        Axis.Z,
-                        setFunctionPreset,
-                      ),
-                  }}
                   children={(field) => {
                     const isInvalid =
                       field.state.meta.isTouched && !field.state.meta.isValid;
