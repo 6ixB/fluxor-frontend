@@ -25,21 +25,26 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   onReplay,
   onFocus,
 }) => {
+  const timeStep = useSimulationStore.use.timeStep();
   const animationStatus = useSimulationStore.use.animationStatus();
   const animationResetKey = useSimulationStore.use.animationResetKey();
   const setAnimationStep = useSimulationStore.use.setAnimationStep();
 
   const prevResetKeyRef = useRef(animationResetKey);
-  const progress = useSimulationStore.use.animationProgress();
-  const maxProgress = useSimulationStore.use.animationMaxProgress();
+  const animationProgress = useSimulationStore.use.animationProgress();
+  const animationMaxProgress = useSimulationStore.use.animationMaxProgress();
+  const setAnimationProgress = useSimulationStore.use.setAnimationProgress();
 
   useEffect(() => {
-    if (animationResetKey !== prevResetKeyRef.current || progress === 0) {
+    if (
+      animationResetKey !== prevResetKeyRef.current ||
+      animationProgress === 0
+    ) {
       prevResetKeyRef.current = animationResetKey;
       onPause();
       setAnimationStep(0);
     }
-  }, [animationResetKey, onPause, progress, setAnimationStep]);
+  }, [animationResetKey, onPause, animationProgress, setAnimationStep]);
 
   const ts = useSimulationStore.use.ts();
   const playable = ts.length > 0;
@@ -58,9 +63,12 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
       >
         <CardContent className="flex flex-col items-center justify-center gap-y-2">
           <Slider
-            value={[progress]}
-            max={maxProgress}
-            step={1}
+            value={[animationProgress]}
+            onValueChange={(value) => {
+              setAnimationProgress(value[0]);
+            }}
+            max={animationMaxProgress}
+            step={timeStep}
             disabled={!playable}
             className="mt-4"
           />

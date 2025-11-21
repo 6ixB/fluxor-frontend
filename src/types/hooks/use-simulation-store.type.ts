@@ -10,6 +10,9 @@ type SimulationState = {
   z0: number;
   setStartPos: (x: number, y: number, z: number) => void;
 
+  timeStep: number;
+  setTimeStep: (timeStep: number) => void;
+
   /* 
     Usage: Array of time points.
   */

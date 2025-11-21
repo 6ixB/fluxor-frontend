@@ -27,6 +27,12 @@ const useSimulationStoreBase = create<SimulationState>()(
           state.z0 = z;
         }),
 
+      timeStep: 0,
+      setTimeStep: (timeStep) =>
+        set((state) => {
+          state.timeStep = timeStep;
+        }),
+
       ts: [],
       setTs: makeArraySetter("ts"),
 

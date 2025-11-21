@@ -30,6 +30,7 @@ import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const SimulationConfigForm: React.FC = () => {
   const setStartPos = useSimulationStore.use.setStartPos();
+  const setTimeStep = useSimulationStore.use.setTimeStep();
   const setAll = useSimulationStore.use.setAll();
 
   const animationResetKey = useSimulationStore.use.animationResetKey();
@@ -43,9 +44,10 @@ const SimulationConfigForm: React.FC = () => {
     onSubmit: async ({ value }) => {
       const submitPromise = (async () => {
         const simulationResult = await runSimulation(value);
-        const { x0, y0, z0 } = value;
+        const { x0, y0, z0, timeStep } = value;
 
         setStartPos(x0, y0, z0);
+        setTimeStep(timeStep);
         setAll(simulationResult);
 
         setAnimationResetKey(animationResetKey + 1);

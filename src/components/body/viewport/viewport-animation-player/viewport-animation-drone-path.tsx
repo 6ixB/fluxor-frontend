@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, type RefObject } from "react";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { useFrame, type ThreeElements } from "@react-three/fiber";
 import { extend, type ThreeElement } from "@react-three/fiber";
@@ -18,6 +18,49 @@ type ViewPortAnimationDronePathProps = ThreeElements["group"] & {
   onEnd?: () => void;
 };
 
+function getAnimationStep(
+  animationStep: number,
+  animationProgress: number,
+  ts: number[],
+  t0: number,
+): number {
+  let i = animationStep;
+
+  while (i < ts.length - 1 && ts[i + 1] - t0 <= animationProgress) {
+    i++;
+  }
+
+  while (i > 0 && ts[i] - t0 > animationProgress) {
+    i--;
+  }
+
+  return i;
+}
+
+function setDronePathPos(
+  animationStep: number,
+  xs: number[],
+  ys: number[],
+  zs: number[],
+  droneRef: RefObject<THREE.Group<THREE.Object3DEventMap>>,
+  lineGeoRef: RefObject<
+    THREE.BufferGeometry<
+      THREE.NormalBufferAttributes,
+      THREE.BufferGeometryEventMap
+    >
+  >,
+) {
+  droneRef.current.position.set(
+    -1 * (xs[animationStep] ?? 0),
+    ys[animationStep] ?? 0,
+    zs[animationStep] ?? 0,
+  );
+
+  if (lineGeoRef.current) {
+    lineGeoRef.current.setDrawRange(0, animationStep + 1);
+  }
+}
+
 const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   onEnd,
   ...props
@@ -25,7 +68,16 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   const animationResetKey = useSimulationStore.use.animationResetKey();
   const animationStatus = useSimulationStore.use.animationStatus();
   const animationSpeed = useSimulationStore.use.animationSpeed();
+  const animationStep = useSimulationStore.use.animationStep();
+  const animationProgress = useSimulationStore.use.animationProgress();
+  const animationMaxProgress = useSimulationStore.use.animationMaxProgress();
+
+  const setAnimationStatus = useSimulationStore.use.setAnimationStatus();
   const setAnimationStep = useSimulationStore.use.setAnimationStep();
+  const setAnimationProgress = useSimulationStore.use.setAnimationProgress();
+  const setAnimationMaxProgress =
+    useSimulationStore.use.setAnimationMaxProgress();
+
   const playing = animationStatus === AnimationStatus.Playing;
 
   const x0 = useSimulationStore.use.x0();
@@ -37,9 +89,6 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   const ys = useSimulationStore.use.ys();
   const zs = useSimulationStore.use.zs();
 
-  const setProgress = useSimulationStore.use.setAnimationProgress();
-  const setMaxProgress = useSimulationStore.use.setAnimationMaxProgress();
-
   const droneRef = useRef<THREE.Group>(null!);
 
   const lineRef = useRef<THREE.Line>(null!);
@@ -48,26 +97,19 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   const count = Math.min(xs.length, ys.length, zs.length);
   const hasPath = count >= 1;
 
-  const t0Ref = useRef(0);
-  const tRef = useRef(0);
-  const iRef = useRef(0);
-  const endedRef = useRef(false);
   const notifiedRef = useRef(false);
 
   useEffect(() => {
     if (!hasPath || !ts.length) return;
 
-    t0Ref.current = ts[0];
-    tRef.current = 0;
-    iRef.current = 0;
-    endedRef.current = false;
     notifiedRef.current = false;
 
-    droneRef.current.position.set(-x0, z0, y0);
-
     const total = ts[ts.length - 1] - ts[0];
-    setProgress(0);
-    setMaxProgress(total);
+    setAnimationStep(0);
+    setAnimationProgress(0);
+    setAnimationMaxProgress(total);
+
+    droneRef.current.position.set(-x0, z0, y0);
 
     if (lineGeoRef.current) {
       const N = Math.min(xs.length, ys.length, zs.length);
@@ -93,25 +135,50 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     x0,
     y0,
     z0,
-    animationResetKey,
     hasPath,
-    setProgress,
-    setMaxProgress,
+    animationResetKey,
+    setAnimationStep,
+    setAnimationProgress,
+    setAnimationMaxProgress,
+  ]);
+
+  useEffect(() => {
+    if (animationProgress < animationMaxProgress) {
+      const t0 = ts[0];
+      const i = getAnimationStep(animationStep, animationProgress, ts, t0);
+      setAnimationStep(i);
+      setDronePathPos(i, xs, ys, zs, droneRef, lineGeoRef);
+
+      if (animationStatus == AnimationStatus.Ended) {
+        setAnimationStatus(AnimationStatus.Paused);
+      }
+    }
+  }, [
+    ts,
+    xs,
+    ys,
+    zs,
+    animationStep,
+    animationProgress,
+    animationMaxProgress,
+    animationStatus,
+    setAnimationStep,
+    setAnimationStatus,
   ]);
 
   useFrame((_, delta) => {
     if (!hasPath || !ts.length || !droneRef.current) return;
-    if (endedRef.current || !playing) return;
+    if (!playing) return;
 
-    tRef.current += delta * animationSpeed;
-    const t0 = t0Ref.current;
-    const elapsed = tRef.current;
+    const t0 = ts[0];
+    const elapsed = animationProgress + delta * animationSpeed;
     const total = ts[ts.length - 1] - t0;
 
-    setProgress(elapsed);
+    setAnimationProgress(elapsed);
 
     if (elapsed >= total) {
       const last = ts.length - 1;
+
       droneRef.current.position.set(
         -1 * (xs[last] ?? 0),
         ys[last] ?? 0,
@@ -125,7 +192,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
         );
       }
 
-      endedRef.current = true;
+      setAnimationStatus(AnimationStatus.Ended);
 
       if (!notifiedRef.current) {
         notifiedRef.current = true;
@@ -134,17 +201,9 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
       return;
     }
 
-    let i = iRef.current;
-    while (i < ts.length - 1 && ts[i + 1] - t0 <= tRef.current) i++;
-    while (i > 0 && ts[i] - t0 > tRef.current) i--;
-    iRef.current = i;
+    const i = getAnimationStep(animationStep, animationProgress, ts, t0);
     setAnimationStep(i);
-
-    droneRef.current.position.set(-1 * (xs[i] ?? 0), ys[i] ?? 0, zs[i] ?? 0);
-
-    if (lineGeoRef.current) {
-      lineGeoRef.current.setDrawRange(0, i + 1);
-    }
+    setDronePathPos(i, xs, ys, zs, droneRef, lineGeoRef);
   });
 
   return (
