@@ -29,11 +29,11 @@ const cameraLookAtPos: [number, number, number] = [0, 0, 0];
 
 const ViewPortAnimationPlayer: React.FC = () => {
   const animationResetKey = useSimulationStore.use.animationResetKey();
-  const setAnimationStatus = useSimulationStore.use.setAnimationStatus();
   const setAnimationResetKey = useSimulationStore.use.setAnimationResetKey();
-  const setAnimationStep = useSimulationStore.use.setAnimationStep();
-  const setCanvasReady = useSimulationStore.use.setCanvasReady();
+  const setAnimationStatus = useSimulationStore.use.setAnimationStatus();
+
   const canvasReady = useSimulationStore.use.canvasReady();
+  const setCanvasReady = useSimulationStore.use.setCanvasReady();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -59,7 +59,6 @@ const ViewPortAnimationPlayer: React.FC = () => {
   const handleAnimationReplay = () => {
     setAnimationResetKey(animationResetKey + 1);
     setAnimationStatus(AnimationStatus.Paused);
-    setAnimationStep(0);
   };
 
   return (
