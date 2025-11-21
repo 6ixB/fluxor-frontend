@@ -61,7 +61,7 @@ const steps: TourStep[] = [
           Viewport
         </h3>
         <p className="text-muted-foreground">
-          To see the simulation animations, select the{" "}
+          To see the simulation animations, select the&nbsp;
           <strong>Animation</strong> tab and to analyze simulation data charts
           select the <strong>Charts</strong> tab.
         </p>
