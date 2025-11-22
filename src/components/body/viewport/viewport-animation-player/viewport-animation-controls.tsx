@@ -5,9 +5,21 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { FocusIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
+import {
+  CircleGaugeIcon,
+  FocusIcon,
+  PauseIcon,
+  PlayIcon,
+  RotateCcwIcon,
+} from "lucide-react";
 import { useEffect, useRef } from "react";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 import { AnimationStatus } from "@/types/simulation.type";
@@ -35,6 +47,9 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   const animationMaxProgress = useSimulationStore.use.animationMaxProgress();
   const setAnimationProgress = useSimulationStore.use.setAnimationProgress();
 
+  const animationSpeed = useSimulationStore.use.animationSpeed();
+  const setAnimationSpeed = useSimulationStore.use.setAnimationSpeed();
+
   useEffect(() => {
     if (
       animationResetKey !== prevResetKeyRef.current ||
@@ -48,6 +63,11 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
 
   const ts = useSimulationStore.use.ts();
   const playable = ts.length > 0;
+
+  const handleSpeedChange = (value: string) => {
+    if (!value) return;
+    setAnimationSpeed(parseFloat(value));
+  };
 
   return (
     <div
@@ -138,6 +158,67 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
                 <p>Reset camera to default</p>
               </TooltipContent>
             </Tooltip>
+            <Popover>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="AnimationPlaybackSpeed"
+                    >
+                      <CircleGaugeIcon />
+                    </Button>
+                  </PopoverTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Set animation playback speed</p>
+                </TooltipContent>
+              </Tooltip>
+              <PopoverContent className="flex w-fit flex-col items-center justify-center p-0">
+                <ToggleGroup
+                  type="single"
+                  value={String(animationSpeed)}
+                  onValueChange={handleSpeedChange}
+                >
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="0.5 animation playback speed"
+                    value="0.5"
+                  >
+                    0.5x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="0.75 animation playback speed"
+                    value="0.75"
+                  >
+                    0.75x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="1.0 animation playback speed"
+                    value="1"
+                  >
+                    1.0x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="1.5 animation playback speed"
+                    value="1.5"
+                  >
+                    1.5x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="2.0 animation playback speed"
+                    value="2"
+                  >
+                    2.0x
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </PopoverContent>
+            </Popover>
           </div>
         </CardContent>
       </Card>

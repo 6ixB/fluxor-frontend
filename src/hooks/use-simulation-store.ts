@@ -92,7 +92,7 @@ const useSimulationStoreBase = create<SimulationState>()(
           state.animationStep = value;
         }),
 
-      animationSpeed: 1,
+      animationSpeed: 1.0,
       setAnimationSpeed: (value) =>
         set((state) => {
           state.animationSpeed = value;

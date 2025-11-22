@@ -5,6 +5,7 @@ import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const ViewPortAnimationInformation: React.FC = () => {
   const animationStep = useSimulationStore.use.animationStep();
+  const animationSpeed = useSimulationStore.use.animationSpeed();
   const droneSpeed = useSimulationStore.use.bs();
 
   return (
@@ -49,6 +50,9 @@ const ViewPortAnimationInformation: React.FC = () => {
         <div className="text-muted-foreground text-sm">
           droneSpeed={(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s (towards
           target)
+        </div>
+        <div className="text-muted-foreground text-sm">
+          animationSpeed={animationSpeed ?? 0}
         </div>
       </div>
     </div>
