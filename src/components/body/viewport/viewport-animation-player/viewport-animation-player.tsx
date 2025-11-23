@@ -23,6 +23,7 @@ import {
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
 import { Spinner } from "@/components/ui/spinner";
+import { ServerStatus } from "@/components/header/server-status";
 
 const cameraPos: [number, number, number] = [5, 5, 5];
 const cameraLookAtPos: [number, number, number] = [0, 0, 0];
@@ -118,6 +119,7 @@ const ViewPortAnimationPlayer: React.FC = () => {
         onFocus={handleFocus}
       />
       <ViewPortAnimationInformation />
+      <ServerStatus />
     </div>
   );
 };
