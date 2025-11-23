@@ -1,4 +1,5 @@
 import { DroneIcon } from "lucide-react";
+import { ServerStatus } from "@/components/header/server-status";
 import { InformationDialog } from "@/components/header/information-dialog";
 import { ThemeModeToggle } from "@/components/header/theme-mode-toggle";
 
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center justify-end gap-x-2">
+          <ServerStatus />
           <InformationDialog />
           <ThemeModeToggle />
         </div>
