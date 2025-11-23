@@ -27,6 +27,7 @@ import { useSimulationConfigForm } from "@/hooks/use-simulation-config-form";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { toast } from "sonner";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { useMutation } from "@tanstack/react-query";
 
 const SimulationConfigForm: React.FC = () => {
   const setStartPos = useSimulationStore.use.setStartPos();
@@ -37,6 +38,11 @@ const SimulationConfigForm: React.FC = () => {
   const setAnimationResetKey = useSimulationStore.use.setAnimationResetKey();
   const setAnimationMaxStep = useSimulationStore.use.setAnimationMaxStep();
 
+  const runSimulationMutation = useMutation({
+    mutationKey: ["run-simulation"],
+    mutationFn: runSimulation,
+  });
+
   const form = useSimulationConfigForm({
     defaultValues: defaults.simulationConfig,
     validators: {
@@ -44,7 +50,7 @@ const SimulationConfigForm: React.FC = () => {
     },
     onSubmit: async ({ value }) => {
       const submitPromise = (async () => {
-        const simulationResult = await runSimulation(value);
+        const simulationResult = await runSimulationMutation.mutateAsync(value);
         const { x0, y0, z0, timeStep, steps } = value;
 
         setStartPos(x0, y0, z0);
