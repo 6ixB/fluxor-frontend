@@ -42,17 +42,20 @@ const ViewPortAnimationInformation: React.FC = () => {
           <Kbd className="size-8">E</Kbd> Down
         </div>
         <div className="text-muted-foreground flex items-center gap-x-2">
-          <Kbd className="size-8">Shift</Kbd> Increase Speed
+          <Kbd className="size-8">Shift</Kbd> Boost
+        </div>
+        <div className="text-muted-foreground flex items-center gap-x-2">
+          <Kbd className="size-8">Space</Kbd> Play/Pause
         </div>
         <div className="text-muted-foreground text-sm">
-          step={animationStep}
+          Step: {animationStep}
         </div>
         <div className="text-muted-foreground text-sm">
-          droneSpeed={(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s (towards
-          target)
+          Drone Speed: {(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s
+          (towards target)
         </div>
         <div className="text-muted-foreground text-sm">
-          animationSpeed={animationSpeed ?? 0}
+          Animation Speed: {animationSpeed}x
         </div>
       </div>
     </div>
