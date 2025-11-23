@@ -55,14 +55,16 @@ const ViewPortAnimationInformation: React.FC = () => {
         <div className="text-muted-foreground flex items-center gap-x-2">
           <Kbd className="size-8">R</Kbd> Replay
         </div>
-        <Badge>
+        <Badge className="bg-primary/70 rounded-sm">
           Step: {animationStep}/{animationMaxStep}
         </Badge>
-        <Badge>
+        <Badge className="bg-primary/70 rounded-sm">
           Drone Speed: {(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s
           (towards target)
         </Badge>
-        <Badge>Animation Speed: {animationSpeed}x</Badge>
+        <Badge className="bg-primary/70 rounded-sm">
+          Animation Speed: {animationSpeed}x
+        </Badge>
       </div>
     </div>
   );
