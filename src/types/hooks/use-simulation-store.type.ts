@@ -1,4 +1,4 @@
-import { AnimationStatus } from "@/types/simulation.type";
+import type { AnimationStatusType } from "@/types/simulation.type";
 import type { SimulationResultEntity } from "@/types/simulation.type";
 
 type SimulationState = {
@@ -66,8 +66,8 @@ type SimulationState = {
   animationResetKey: number;
   setAnimationResetKey: (value: number) => void;
 
-  animationStatus: AnimationStatus;
-  setAnimationStatus: (value: AnimationStatus) => void;
+  animationStatus: AnimationStatusType;
+  setAnimationStatus: (value: AnimationStatusType) => void;
 
   animationProgress: number;
   setAnimationProgress: (value: number) => void;

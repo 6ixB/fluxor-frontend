@@ -70,7 +70,8 @@ const AnimationStatus = {
   Ended: "ended",
 } as const;
 
-type AnimationStatus = (typeof AnimationStatus)[keyof typeof AnimationStatus];
+type AnimationStatusType =
+  (typeof AnimationStatus)[keyof typeof AnimationStatus];
 
 export {
   SimulationConfigDtoSchema,
@@ -82,4 +83,5 @@ export {
   WindVelFuncPresetValues,
   ReverseWindVelFuncPresetValues,
   AnimationStatus,
+  type AnimationStatusType,
 };
