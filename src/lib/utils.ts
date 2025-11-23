@@ -29,4 +29,32 @@ const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
   return store;
 };
 
-export { cn, createSelectors };
+function printSplashScreen() {
+  const style = `
+    font-family: monospace;
+    white-space: pre;
+    display: block;
+    overflow: hidden;
+    line-height: 1.1;
+  `;
+
+  const banner = `
+ ________ ___       ___  ___     ___    ___ ________  ________     
+|\\  _____\\\\  \\     |\\  \\|\\  \\   |\\  \\  /  /|\\   __  \\|\\   __  \\    
+\\ \\  \\__/\\ \\  \\    \\ \\  \\\\\\  \\  \\ \\  \\/  / | \\  \\|\\  \\ \\  \\|\\  \\   
+ \\ \\   __\\\\ \\  \\    \\ \\  \\\\\\  \\  \\ \\    / / \\ \\  \\\\\\  \\ \\   _  _\\  
+  \\ \\  \\_| \\ \\  \\____\\ \\  \\\\\\  \\  /     \\/   \\ \\  \\\\\\  \\ \\  \\\\  \\| 
+   \\ \\__\\   \\ \\_______\\ \\_______\\/  /\\   \\    \\ \\_______\\ \\__\\\\ _\\ 
+    \\|__|    \\|_______|\\|_______/__/ /\\ __\\    \\|_______|\\|__|\\|__|
+                                |__|/ \\|__|                         
+
+
+Greetings!
+
+- Author https://github.com/6ixB
+`;
+
+  console.log(`%c${banner}`, style);
+}
+
+export { cn, createSelectors, printSplashScreen };
