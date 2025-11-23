@@ -50,6 +50,9 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   const animationSpeed = useSimulationStore.use.animationSpeed();
   const setAnimationSpeed = useSimulationStore.use.setAnimationSpeed();
 
+  const isDraggingRef = useRef(false);
+  const wasPlayingRef = useRef(false);
+
   useEffect(() => {
     if (
       animationResetKey !== prevResetKeyRef.current ||
@@ -69,6 +72,32 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
     setAnimationSpeed(parseFloat(value));
   };
 
+  const handleSliderChange = (value: number[]) => {
+    if (!playable) return;
+
+    if (!isDraggingRef.current) {
+      isDraggingRef.current = true;
+      wasPlayingRef.current = animationStatus === AnimationStatus.Playing;
+
+      if (wasPlayingRef.current) {
+        onPause();
+      }
+    }
+
+    setAnimationProgress(value[0]);
+  };
+
+  const handleSliderCommit = () => {
+    if (!playable) return;
+
+    if (isDraggingRef.current && wasPlayingRef.current) {
+      onPlay();
+    }
+
+    isDraggingRef.current = false;
+    wasPlayingRef.current = false;
+  };
+
   return (
     <div
       id={TOUR_STEP_IDS.VIEWPORT_ANIMATION_PLAYBACK_CONTROLS}
@@ -84,9 +113,8 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
         <CardContent className="flex flex-col items-center justify-center gap-y-2">
           <Slider
             value={[animationProgress]}
-            onValueChange={(value) => {
-              setAnimationProgress(value[0]);
-            }}
+            onValueChange={handleSliderChange}
+            onValueCommit={handleSliderCommit}
             max={animationMaxProgress}
             step={timeStep}
             disabled={!playable}
