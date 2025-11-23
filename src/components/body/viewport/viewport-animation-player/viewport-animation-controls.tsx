@@ -183,6 +183,13 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
                 >
                   <ToggleGroupItem
                     className="data-state-on:bg-muted-foreground"
+                    aria-label="0.25 animation playback speed"
+                    value="0.25"
+                  >
+                    0.25x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
                     aria-label="0.5 animation playback speed"
                     value="0.5"
                   >
@@ -215,6 +222,13 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
                     value="2"
                   >
                     2.0x
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    className="data-state-on:bg-muted-foreground"
+                    aria-label="4.0 animation playback speed"
+                    value="4"
+                  >
+                    4.0x
                   </ToggleGroupItem>
                 </ToggleGroup>
               </PopoverContent>
