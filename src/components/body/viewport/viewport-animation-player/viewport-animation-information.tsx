@@ -47,6 +47,9 @@ const ViewPortAnimationInformation: React.FC = () => {
         <div className="text-muted-foreground flex items-center gap-x-2">
           <Kbd className="size-8">Space</Kbd> Play/Pause
         </div>
+        <div className="text-muted-foreground flex items-center gap-x-2">
+          <Kbd className="size-8">R</Kbd> Replay
+        </div>
         <div className="text-muted-foreground text-sm">
           Step: {animationStep}
         </div>
