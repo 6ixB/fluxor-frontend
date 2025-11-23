@@ -1,25 +1,54 @@
 import * as THREE from "three";
 import type { PointerLockControls as PLCImpl } from "three-stdlib";
+import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { useEffect, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
+import { AnimationStatus } from "@/types/simulation.type";
 
 type ViewPortAnimationFreeCamProps = {
   baseSpeed?: number;
   boost?: number;
+  onReplay: () => void;
 };
 
 const ViewPortAnimationFreeCam: React.FC<ViewPortAnimationFreeCamProps> = ({
   baseSpeed = 5,
   boost = 5,
+  onReplay,
 }) => {
+  const animationStatus = useSimulationStore.use.animationStatus();
+  const animationMaxProgress = useSimulationStore.use.animationMaxProgress();
+  const setAnimationStatus = useSimulationStore.use.setAnimationStatus();
+
   const { camera } = useThree();
-  const controlsRef = useRef<PLCImpl>(null!);
-  const keys = useRef<Record<string, boolean>>({});
   const worldUp = new THREE.Vector3(0, 1, 0);
+  const keys = useRef<Record<string, boolean>>({});
+  const controlsRef = useRef<PLCImpl>(null!);
 
   useEffect(() => {
-    const up = (e: KeyboardEvent) => (keys.current[e.code] = false);
+    const up = (e: KeyboardEvent) => {
+      keys.current[e.code] = false;
+
+      if (animationMaxProgress === 0) return;
+
+      if (e.code === "Space") {
+        if (animationStatus === AnimationStatus.Playing) {
+          setAnimationStatus(AnimationStatus.Paused);
+          return;
+        }
+
+        if (animationStatus === AnimationStatus.Paused) {
+          setAnimationStatus(AnimationStatus.Playing);
+          return;
+        }
+      }
+
+      if (e.code === "KeyR") {
+        onReplay();
+        return;
+      }
+    };
     const down = (e: KeyboardEvent) => (keys.current[e.code] = true);
 
     window.addEventListener("keyup", up);
@@ -29,7 +58,7 @@ const ViewPortAnimationFreeCam: React.FC<ViewPortAnimationFreeCamProps> = ({
       window.removeEventListener("keydown", down);
       window.removeEventListener("keyup", up);
     };
-  }, []);
+  }, [onReplay, animationStatus, animationMaxProgress, setAnimationStatus]);
 
   useFrame((_, dt) => {
     const locked = !!controlsRef.current?.isLocked;
