@@ -9,12 +9,14 @@ import { AnimationStatus } from "@/types/simulation.type";
 type ViewPortAnimationFreeCamProps = {
   baseSpeed?: number;
   boost?: number;
+  onFocus: () => void;
   onReplay: () => void;
 };
 
 const ViewPortAnimationFreeCam: React.FC<ViewPortAnimationFreeCamProps> = ({
   baseSpeed = 5,
   boost = 5,
+  onFocus,
   onReplay,
 }) => {
   const animationStatus = useSimulationStore.use.animationStatus();
@@ -29,6 +31,11 @@ const ViewPortAnimationFreeCam: React.FC<ViewPortAnimationFreeCamProps> = ({
   useEffect(() => {
     const up = (e: KeyboardEvent) => {
       keys.current[e.code] = false;
+
+      if (e.code === "KeyF") {
+        onFocus();
+        return;
+      }
 
       if (animationMaxProgress === 0) return;
 
@@ -58,7 +65,13 @@ const ViewPortAnimationFreeCam: React.FC<ViewPortAnimationFreeCamProps> = ({
       window.removeEventListener("keydown", down);
       window.removeEventListener("keyup", up);
     };
-  }, [onReplay, animationStatus, animationMaxProgress, setAnimationStatus]);
+  }, [
+    onFocus,
+    onReplay,
+    animationStatus,
+    animationMaxProgress,
+    setAnimationStatus,
+  ]);
 
   useFrame((_, dt) => {
     const locked = !!controlsRef.current?.isLocked;

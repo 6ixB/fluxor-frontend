@@ -47,6 +47,9 @@ const ViewPortAnimationInformation: React.FC = () => {
           <Kbd className="size-8">Shift</Kbd> Boost
         </div>
         <div className="text-muted-foreground flex items-center gap-x-2">
+          <Kbd className="size-8">F</Kbd> Reset Camera
+        </div>
+        <div className="text-muted-foreground flex items-center gap-x-2">
           <Kbd className="size-8">Space</Kbd> Play/Pause
         </div>
         <div className="text-muted-foreground flex items-center gap-x-2">

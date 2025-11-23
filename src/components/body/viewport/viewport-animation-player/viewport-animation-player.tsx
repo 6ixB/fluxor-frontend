@@ -104,7 +104,10 @@ const ViewPortAnimationPlayer: React.FC = () => {
           fadeStrength={1}
         />
         <ViewPortAnimationLights />
-        <ViewPortAnimationFreeCam onReplay={handleAnimationReplay} />
+        <ViewPortAnimationFreeCam
+          onFocus={handleFocus}
+          onReplay={handleAnimationReplay}
+        />
         <ViewPortAnimationDronePath onEnd={handleAnimationEnd} />
         <ViewPortAnimationTarget />
       </Canvas>
