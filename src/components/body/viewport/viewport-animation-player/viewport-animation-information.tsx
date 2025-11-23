@@ -2,9 +2,11 @@ import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { Kbd } from "@/components/ui/kbd";
 import { MousePointerClickIcon } from "lucide-react";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { Badge } from "@/components/ui/badge";
 
 const ViewPortAnimationInformation: React.FC = () => {
   const animationStep = useSimulationStore.use.animationStep();
+  const animationMaxStep = useSimulationStore.use.animationMaxStep();
   const animationSpeed = useSimulationStore.use.animationSpeed();
   const droneSpeed = useSimulationStore.use.bs();
 
@@ -50,16 +52,14 @@ const ViewPortAnimationInformation: React.FC = () => {
         <div className="text-muted-foreground flex items-center gap-x-2">
           <Kbd className="size-8">R</Kbd> Replay
         </div>
-        <div className="text-muted-foreground text-sm">
-          Step: {animationStep}
-        </div>
-        <div className="text-muted-foreground text-sm">
+        <Badge>
+          Step: {animationStep}/{animationMaxStep}
+        </Badge>
+        <Badge>
           Drone Speed: {(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s
           (towards target)
-        </div>
-        <div className="text-muted-foreground text-sm">
-          Animation Speed: {animationSpeed}x
-        </div>
+        </Badge>
+        <Badge>Animation Speed: {animationSpeed}x</Badge>
       </div>
     </div>
   );

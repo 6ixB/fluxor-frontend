@@ -78,6 +78,9 @@ type SimulationState = {
   animationStep: number;
   setAnimationStep: (value: number) => void;
 
+  animationMaxStep: number;
+  setAnimationMaxStep: (value: number) => void;
+
   animationSpeed: number;
   setAnimationSpeed: (value: number) => void;
 

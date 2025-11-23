@@ -35,6 +35,7 @@ const SimulationConfigForm: React.FC = () => {
 
   const animationResetKey = useSimulationStore.use.animationResetKey();
   const setAnimationResetKey = useSimulationStore.use.setAnimationResetKey();
+  const setAnimationMaxStep = useSimulationStore.use.setAnimationMaxStep();
 
   const form = useSimulationConfigForm({
     defaultValues: defaults.simulationConfig,
@@ -44,13 +45,14 @@ const SimulationConfigForm: React.FC = () => {
     onSubmit: async ({ value }) => {
       const submitPromise = (async () => {
         const simulationResult = await runSimulation(value);
-        const { x0, y0, z0, timeStep } = value;
+        const { x0, y0, z0, timeStep, steps } = value;
 
         setStartPos(x0, y0, z0);
         setTimeStep(timeStep);
         setAll(simulationResult);
 
         setAnimationResetKey(animationResetKey + 1);
+        setAnimationMaxStep(steps);
 
         return simulationResult;
       })();

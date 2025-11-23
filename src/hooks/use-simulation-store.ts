@@ -92,6 +92,12 @@ const useSimulationStoreBase = create<SimulationState>()(
           state.animationStep = value;
         }),
 
+      animationMaxStep: 0,
+      setAnimationMaxStep: (value) =>
+        set((state) => {
+          state.animationMaxStep = value;
+        }),
+
       animationSpeed: 1.0,
       setAnimationSpeed: (value) =>
         set((state) => {
