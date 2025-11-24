@@ -6,7 +6,7 @@ import { NavLink } from "react-router";
 const AppNotFound: React.FC = () => {
   return (
     <AppLayout>
-      <div className="bg-background flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <div className="bg-background flex min-h-screen flex-col items-center justify-center text-center">
         <div className="relative flex h-56 w-[220px] items-center justify-center rounded-2xl sm:h-[260px] sm:w-[300px] md:h-80 md:w-[380px]">
           <img
             src="https://cdn.shadcnstudio.com/ss-assets/blocks/marketing/error/image-1.png"
