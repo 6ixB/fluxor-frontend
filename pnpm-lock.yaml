@@ -81,8 +81,8 @@ importers:
         specifier: ^1.23.8
         version: 1.23.8(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tanstack/react-query':
-        specifier: ^5.90.6
-        version: 5.90.6(react@19.2.0)
+        specifier: ^5.90.10
+        version: 5.90.10(react@19.2.0)
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.5.0(react@19.2.0)
@@ -116,6 +116,9 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.2.0(react@19.2.0)
+      react-error-boundary:
+        specifier: ^6.0.0
+        version: 6.0.0(react@19.2.0)
       react-plotly.js:
         specifier: ^2.6.0
         version: 2.6.0(plotly.js@3.2.0(mapbox-gl@1.13.3))(react@19.2.0)
@@ -158,7 +161,7 @@ importers:
         version: 5.91.2(eslint@9.39.0(jiti@2.6.1))(typescript@5.9.3)
       '@tanstack/react-query-devtools':
         specifier: ^5.91.0
-        version: 5.91.0(@tanstack/react-query@5.90.6(react@19.2.0))(react@19.2.0)
+        version: 5.91.0(@tanstack/react-query@5.90.10(react@19.2.0))(react@19.2.0)
       '@types/node':
         specifier: ^24.6.0
         version: 24.10.0
@@ -1277,8 +1280,8 @@ packages:
     resolution: {integrity: sha512-vGY+CWsFZeac3dELgB6UZ4c7OacwsLb8hvL2gLS6hTgy8Fl0Bm/aLokHaeDIP+q9F9HUZTnp360z9uv78eg8pg==}
     engines: {node: '>=18'}
 
-  '@tanstack/query-core@5.90.6':
-    resolution: {integrity: sha512-AnZSLF26R8uX+tqb/ivdrwbVdGemdEDm1Q19qM6pry6eOZ6bEYiY7mWhzXT1YDIPTNEVcZ5kYP9nWjoxDLiIVw==}
+  '@tanstack/query-core@5.90.10':
+    resolution: {integrity: sha512-EhZVFu9rl7GfRNuJLJ3Y7wtbTnENsvzp+YpcAV7kCYiXni1v8qZh++lpw4ch4rrwC0u/EZRnBHIehzCGzwXDSQ==}
 
   '@tanstack/query-devtools@5.91.0':
     resolution: {integrity: sha512-uNWkqWTiIKCv8Iaahb7bftmDaZVkBetB+l+OQhQeCEZAedyqxw2eyaRUc8sAQ2LzD843tVdYL6bzOtRWJHJSbQ==}
@@ -1298,8 +1301,8 @@ packages:
       '@tanstack/react-query': ^5.90.10
       react: ^18 || ^19
 
-  '@tanstack/react-query@5.90.6':
-    resolution: {integrity: sha512-gB1sljYjcobZKxjPbKSa31FUTyr+ROaBdoH+wSSs9Dk+yDCmMs+TkTV3PybRRVLC7ax7q0erJ9LvRWnMktnRAw==}
+  '@tanstack/react-query@5.90.10':
+    resolution: {integrity: sha512-BKLss9Y8PQ9IUjPYQiv3/Zmlx92uxffUOX8ZZNoQlCIZBJPT5M+GOMQj7xislvVQ6l1BstBjcX0XB/aHfFYVNw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -2804,6 +2807,11 @@ packages:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
       react: ^19.2.0
+
+  react-error-boundary@6.0.0:
+    resolution: {integrity: sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA==}
+    peerDependencies:
+      react: '>=16.13.1'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4426,7 +4434,7 @@ snapshots:
       '@tanstack/devtools-event-client': 0.3.4
       '@tanstack/store': 0.7.7
 
-  '@tanstack/query-core@5.90.6': {}
+  '@tanstack/query-core@5.90.10': {}
 
   '@tanstack/query-devtools@5.91.0': {}
 
@@ -4440,15 +4448,15 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@tanstack/react-query-devtools@5.91.0(@tanstack/react-query@5.90.6(react@19.2.0))(react@19.2.0)':
+  '@tanstack/react-query-devtools@5.91.0(@tanstack/react-query@5.90.10(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@tanstack/query-devtools': 5.91.0
-      '@tanstack/react-query': 5.90.6(react@19.2.0)
+      '@tanstack/react-query': 5.90.10(react@19.2.0)
       react: 19.2.0
 
-  '@tanstack/react-query@5.90.6(react@19.2.0)':
+  '@tanstack/react-query@5.90.10(react@19.2.0)':
     dependencies:
-      '@tanstack/query-core': 5.90.6
+      '@tanstack/query-core': 5.90.10
       react: 19.2.0
 
   '@tanstack/react-store@0.7.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
@@ -5977,6 +5985,11 @@ snapshots:
     dependencies:
       react: 19.2.0
       scheduler: 0.27.0
+
+  react-error-boundary@6.0.0(react@19.2.0):
+    dependencies:
+      '@babel/runtime': 7.28.4
+      react: 19.2.0
 
   react-is@16.13.1: {}
 
