@@ -25,8 +25,8 @@ const ViewPortXYZLineChart: React.FC = () => {
           data={[
             {
               x: xs,
-              y: zs,
-              z: ys,
+              y: ys,
+              z: zs,
               mode: "lines",
               type: "scatter3d",
               line: { width: 4, color: "#00ff00" },
@@ -39,8 +39,8 @@ const ViewPortXYZLineChart: React.FC = () => {
             plot_bgcolor: "rgba(0,0,0,0)",
             scene: {
               xaxis: { title: { text: "X" } },
-              yaxis: { title: { text: "Y" } },
-              zaxis: { title: { text: "Z" } },
+              yaxis: { title: { text: "Z" } },
+              zaxis: { title: { text: "Y" } },
               bgcolor: "rgba(0,0,0,0)",
             },
             hovermode: false,

@@ -109,7 +109,7 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     setAnimationProgress(0);
     setAnimationMaxProgress(total);
 
-    droneRef.current.position.set(-x0, z0, y0);
+    droneRef.current.position.set(-x0, y0, z0);
 
     if (lineGeoRef.current) {
       const N = Math.min(xs.length, ys.length, zs.length);

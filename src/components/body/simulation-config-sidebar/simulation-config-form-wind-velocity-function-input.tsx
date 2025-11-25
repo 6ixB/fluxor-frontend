@@ -247,9 +247,7 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
               <AccordionTrigger>
                 <div className="flex items-center gap-x-2">
                   Y Axis
-                  <span className="text-muted-foreground">
-                    (Forward to Backward)
-                  </span>
+                  <span className="text-muted-foreground">(Up to Down)</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
@@ -298,7 +296,9 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
               <AccordionTrigger>
                 <div className="flex items-center gap-x-2">
                   Z Axis
-                  <span className="text-muted-foreground">(Up to Down)</span>
+                  <span className="text-muted-foreground">
+                    (Forward to Backward)
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
