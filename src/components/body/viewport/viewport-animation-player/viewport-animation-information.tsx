@@ -8,7 +8,6 @@ const ViewPortAnimationInformation: React.FC = () => {
   const animationStep = useSimulationStore.use.animationStep();
   const animationMaxStep = useSimulationStore.use.animationMaxStep();
   const animationSpeed = useSimulationStore.use.animationSpeed();
-  const droneSpeed = useSimulationStore.use.bs();
 
   return (
     <div
@@ -63,10 +62,6 @@ const ViewPortAnimationInformation: React.FC = () => {
         </div>
         <Badge className="bg-primary/70 rounded-sm text-xs">
           Step: {animationStep}/{animationMaxStep}
-        </Badge>
-        <Badge className="bg-primary/70 rounded-sm text-xs">
-          Drone Speed: {(droneSpeed[animationStep] ?? 0).toFixed(2)} m/s
-          (towards target)
         </Badge>
         <Badge className="bg-primary/70 rounded-sm text-xs">
           Animation Speed: {animationSpeed}x
