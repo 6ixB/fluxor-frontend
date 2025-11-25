@@ -42,7 +42,10 @@ async function runSimulation(
   });
 
   if (!response.ok) {
-    throw new Error("Failed to run simulation");
+    const data = await response.json();
+    const detail = data.detail;
+
+    throw new Error(`Failed to run simulation (${detail})`);
   }
 
   const data = await response.json();

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 const SimulationConfigDtoSchema = z.object({
-  x0: z.number(),
-  y0: z.number(),
-  z0: z.number(),
+  x0: z.number().min(-20.0).max(20.0),
+  y0: z.number().min(0.0).max(20.0),
+  z0: z.number().min(-20.0).max(20.0),
   droneSpeed: z
     .number()
     .min(0.0, "Drone speed must be at least 0.0 m/s.")
@@ -18,7 +18,7 @@ const SimulationConfigDtoSchema = z.object({
   steps: z
     .int()
     .min(100, "Steps must be at least 100 steps.")
-    .max(100000, "Steps must be at most 100000 steps."),
+    .max(10000, "Steps must be at most 10000 steps."),
 });
 
 const SimulationResultEntitySchema = z.object({
