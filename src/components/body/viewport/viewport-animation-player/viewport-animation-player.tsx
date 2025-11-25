@@ -7,7 +7,7 @@ import {
   type FocusAPI,
 } from "@/components/body/viewport/viewport-animation-player/viewport-animation-focus-api";
 import { ViewPortAnimationControls } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
-import { Grid } from "@react-three/drei";
+import { ViewPortAnimationGround } from "@/components/body/viewport/viewport-animation-player/viewport-animation-ground";
 import { ViewPortAnimationLights } from "@/components/body/viewport/viewport-animation-player/viewport-animation-lights";
 import { ViewPortAnimationFreeCam } from "@/components/body/viewport/viewport-animation-player/viewport-animation-free-cam";
 import { ViewPortAnimationDronePath } from "@/components/body/viewport/viewport-animation-player/viewport-animation-drone-path";
@@ -94,16 +94,7 @@ const ViewPortAnimationPlayer: React.FC = () => {
         camera={{ position: cameraPos }}
       >
         <ViewportFocusApi apiRef={focusApiRef} />
-        <Grid
-          infiniteGrid
-          cellSize={1}
-          cellThickness={0.5}
-          cellColor="gray"
-          sectionSize={5}
-          sectionThickness={1}
-          fadeDistance={50}
-          fadeStrength={1}
-        />
+        <ViewPortAnimationGround />
         <ViewPortAnimationLights />
         <ViewPortAnimationFreeCam
           onFocus={handleFocus}
