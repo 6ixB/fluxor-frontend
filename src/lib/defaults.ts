@@ -8,7 +8,7 @@ const defaults = {
     x0: 2.5,
     y0: 2.5,
     z0: 2.5,
-    droneSpeed: 2.0,
+    droneSpeed: 3.0,
     windVelFuncX:
       WindVelFuncPresetValues[WindVelFuncPreset.ExponentialSinusoid].toString(),
     windVelFuncY:
