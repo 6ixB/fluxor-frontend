@@ -1,9 +1,18 @@
 import { z } from "zod";
 
 const SimulationConfigDtoSchema = z.object({
-  x0: z.number().min(-20.0).max(20.0),
-  y0: z.number().min(0.0).max(20.0),
-  z0: z.number().min(-20.0).max(20.0),
+  x0: z
+    .number()
+    .min(-20.0, "X start must be at least -20.0 m")
+    .max(20.0, "X start must be at most 20.0 m"),
+  y0: z
+    .number()
+    .min(0.0, "Y start must be at least 0.0 m")
+    .max(20.0, "Y start must be at most 20.0 m"),
+  z0: z
+    .number()
+    .min(-20.0, "Z start must be at least -20.0 m")
+    .max(20.0, "Z start must be at most 20.0 m"),
   droneSpeed: z
     .number()
     .min(0.0, "Drone speed must be at least 0.0 m/s.")
