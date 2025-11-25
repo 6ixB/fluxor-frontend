@@ -8,14 +8,14 @@ const defaults = {
     x0: 2.5,
     y0: 2.5,
     z0: 2.5,
-    droneSpeed: 3.0,
+    droneSpeed: 2.0,
     windVelFuncX:
       WindVelFuncPresetValues[WindVelFuncPreset.ExponentialSinusoid].toString(),
     windVelFuncY:
       WindVelFuncPresetValues[WindVelFuncPreset.Sinusoid].toString(),
     windVelFuncZ: WindVelFuncPresetValues[WindVelFuncPreset.Linear].toString(),
     timeStep: 0.001,
-    steps: 2000,
+    steps: 2500,
   },
 };
 
