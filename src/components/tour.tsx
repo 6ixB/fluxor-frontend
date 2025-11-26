@@ -386,7 +386,7 @@ const TourAlertDialog: React.FC<{
                 },
               }}
             >
-              <DroneIcon className="text-primary size-32 stroke-1" />
+              <DroneIcon className="text-primary size-20 stroke-1" />
             </motion.div>
           </div>
           <AlertDialogTitle className="text-center text-xl font-medium">
