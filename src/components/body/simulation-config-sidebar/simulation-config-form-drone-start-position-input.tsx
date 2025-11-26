@@ -29,7 +29,7 @@ const SimulationConfigFormDroneStartPositionInput = withForm({
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <InputGroup>
+                  <InputGroup className="bg-neutral-50">
                     <InputGroupAddon>
                       <InputGroupText>X</InputGroupText>
                     </InputGroupAddon>
@@ -59,7 +59,7 @@ const SimulationConfigFormDroneStartPositionInput = withForm({
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <InputGroup>
+                  <InputGroup className="bg-neutral-50">
                     <InputGroupAddon>
                       <InputGroupText>Y</InputGroupText>
                     </InputGroupAddon>
@@ -89,7 +89,7 @@ const SimulationConfigFormDroneStartPositionInput = withForm({
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <InputGroup>
+                  <InputGroup className="bg-neutral-50">
                     <InputGroupAddon>
                       <InputGroupText>Z</InputGroupText>
                     </InputGroupAddon>

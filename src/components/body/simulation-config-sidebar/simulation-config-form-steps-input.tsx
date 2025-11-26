@@ -32,7 +32,7 @@ const SimulationConfigFormStepsInput = withForm({
                   (More steps → longer animation)
                 </span>
               </FieldLabel>
-              <InputGroup>
+              <InputGroup className="bg-neutral-50">
                 <InputGroupInput
                   id={field.name}
                   name={field.name}

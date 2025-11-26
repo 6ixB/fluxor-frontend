@@ -22,7 +22,7 @@ const SimulationConfigFormDroneSpeedInput = withForm({
           return (
             <Field data-invalid={isInvalid}>
               <FieldLabel htmlFor={field.name}>Drone Speed</FieldLabel>
-              <InputGroup>
+              <InputGroup className="bg-neutral-50">
                 <InputGroupInput
                   id={field.name}
                   name={field.name}

@@ -78,7 +78,7 @@ const SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect =
             );
           }}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full bg-neutral-50">
             <SelectValue placeholder="Function Preset" />
           </SelectTrigger>
           <SelectContent>
@@ -215,7 +215,7 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
                         functionPreset={functionPreset}
                         setFunctionPreset={setFunctionPreset}
                       />
-                      <InputGroup>
+                      <InputGroup className="bg-neutral-50">
                         <InputGroupTextarea
                           id={field.name}
                           name={field.name}
@@ -264,7 +264,7 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
                         functionPreset={functionPreset}
                         setFunctionPreset={setFunctionPreset}
                       />
-                      <InputGroup>
+                      <InputGroup className="bg-neutral-50">
                         <InputGroupTextarea
                           id={field.name}
                           name={field.name}
@@ -315,7 +315,7 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
                         functionPreset={functionPreset}
                         setFunctionPreset={setFunctionPreset}
                       />
-                      <InputGroup>
+                      <InputGroup className="bg-neutral-50">
                         <InputGroupTextarea
                           id={field.name}
                           name={field.name}

@@ -27,7 +27,7 @@ const SimulationConfigFormTimeStepInput = withForm({
           return (
             <Field data-invalid={isInvalid}>
               <FieldLabel htmlFor={field.name}>Time Step</FieldLabel>
-              <InputGroup>
+              <InputGroup className="bg-neutral-50">
                 <InputGroupInput
                   id={field.name}
                   name={field.name}
