@@ -1,4 +1,4 @@
-import { AppLayout } from "./app-layout";
+import { AppLayout } from "@/components/app-layout";
 import { Button } from "@/components/ui/button";
 import { DroneIcon } from "lucide-react";
 import { NavLink } from "react-router";

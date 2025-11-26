@@ -4,7 +4,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { DroneIcon } from "lucide-react";
-import { SimulationConfigForm } from "./body/simulation-config-sidebar/simulation-config-form";
+import { SimulationConfigForm } from "@/components/body/simulation-config-sidebar/simulation-config-form";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 
 const AppSidebar: React.FC = () => {
@@ -12,8 +12,8 @@ const AppSidebar: React.FC = () => {
     <Sidebar id={TOUR_STEP_IDS.SIMULATION_CONFIG}>
       <SidebarHeader className="bg-background border-b px-6 py-3">
         <div className="flex items-center gap-x-2 select-none">
-          <DroneIcon className="size-6" />
-          <span className="text-xl font-semibold">Fluxor</span>
+          <DroneIcon className="size-[1.2rem]" />
+          <span className="text-lg font-semibold">Fluxor</span>
         </div>
       </SidebarHeader>
       <SidebarContent className="bg-background">
