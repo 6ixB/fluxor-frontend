@@ -75,7 +75,9 @@ const SimulationConfigForm: React.FC = () => {
     <div className="flex h-full min-h-0 w-full flex-col sm:max-w-md">
       <ScrollArea className="min-h-0 w-full flex-1 px-6">
         <div className="mt-4 mb-2 flex flex-col gap-2">
-          <h1 className="leading-none font-semibold">Simulation Config</h1>
+          <h1 className="text-sm leading-none font-semibold">
+            Simulation Config
+          </h1>
           <p className="text-muted-foreground text-sm leading-normal font-normal">
             Set your simulation runtime parameters.
           </p>
@@ -124,7 +126,7 @@ const SimulationConfigForm: React.FC = () => {
         className="flex flex-col gap-2 border-t px-6 py-4"
       >
         <div className="flex flex-col gap-2">
-          <h1 className="leading-none font-semibold">Run Simulation</h1>
+          <h1 className="text-sm leading-none font-semibold">Run Simulation</h1>
           <p className="text-muted-foreground text-sm leading-normal font-normal">
             If you're done setting your simulation config, click apply to run
             the simulation.
