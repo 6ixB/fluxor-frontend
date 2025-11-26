@@ -6,7 +6,7 @@ const gridConfig = {
   cellColor: "#6f6f6f",
   sectionSize: 3,
   sectionThickness: 1,
-  sectionColor: "#0000ff",
+  sectionColor: "#9d4b4b",
   fadeDistance: 30,
   fadeStrength: 1,
   followCamera: false,
