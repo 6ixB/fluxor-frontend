@@ -12,9 +12,9 @@ const ViewPortAnimationInformation: React.FC = () => {
   return (
     <div
       id={TOUR_STEP_IDS.VIEWPORT_ANIMATION_INFORMATION}
-      className="absolute top-4 right-4"
+      className="bg-foreground/5 absolute top-4 right-4 flex w-80 flex-col gap-2 rounded-lg p-4 select-none"
     >
-      <div className="bg-foreground/5 flex w-80 flex-col items-start justify-center gap-y-2 rounded-lg p-4 select-none">
+      <div className="grid grid-cols-2 gap-2">
         <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
           <Kbd className="size-6">
             <MousePointerClickIcon className="size-4" />
@@ -54,12 +54,14 @@ const ViewPortAnimationInformation: React.FC = () => {
         <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
           <Kbd className="size-6">
             <SpaceIcon className="size-4" />
-          </Kbd>{" "}
+          </Kbd>
           Play/Pause
         </div>
         <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
           <Kbd className="size-6">R</Kbd> Replay
         </div>
+      </div>
+      <div className="flex flex-col items-start justify-center gap-y-2">
         <Badge className="bg-primary/70 rounded-sm text-xs">
           Step: {animationStep}/{animationMaxStep}
         </Badge>
