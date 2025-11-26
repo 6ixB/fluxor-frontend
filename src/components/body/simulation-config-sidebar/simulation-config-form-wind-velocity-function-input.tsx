@@ -1,5 +1,5 @@
 import { useStore } from "@tanstack/react-form";
-import { Field, FieldError, FieldGroup } from "@/components/ui/field";
+import { Field, FieldError } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -38,7 +38,6 @@ import {
   simulationConfigFormOpts,
   withForm,
 } from "@/hooks/use-simulation-config-form";
-import { Item } from "@/components/ui/item";
 import { PiIcon, VariableIcon } from "lucide-react";
 import { useEffect } from "react";
 
@@ -184,242 +183,242 @@ const SimulationConfigFormWindVelocityFunctionInput = withForm({
     }, [setFunctionPreset, windVelFuncX, windVelFuncY, windVelFuncZ]);
 
     return (
-      <Item variant="outline" className="mb-1">
-        <FieldGroup>
-          <div className="-mb-8 flex flex-col gap-2">
-            <h1>3D Wind Velocity Function</h1>
-            <p className="text-muted-foreground text-sm leading-normal font-normal">
-              Use default presets or define your own wind Velocity function for
-              each dimension.
-            </p>
-          </div>
-          <Accordion type="single" collapsible>
-            <AccordionItem value="x-axis">
-              <AccordionTrigger>
-                <div className="flex items-center gap-x-2">
-                  X Axis
-                  <span className="text-muted-foreground">(Left to Right)</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <form.Field
-                  name="windVelFuncX"
-                  children={(field) => {
-                    const isInvalid =
-                      field.state.meta.isTouched && !field.state.meta.isValid;
-                    return (
-                      <Field data-invalid={isInvalid}>
-                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
-                          form={form}
-                          axis={Axis.X}
-                          functionPreset={functionPreset}
-                          setFunctionPreset={setFunctionPreset}
+      <>
+        <div className="flex flex-col gap-2">
+          <h1 className="leading-none font-semibold">
+            3D Wind Velocity Function
+          </h1>
+          <p className="text-muted-foreground text-sm leading-normal font-normal">
+            Use default presets or define your own wind Velocity function for
+            each dimension.
+          </p>
+        </div>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="x-axis">
+            <AccordionTrigger>
+              <div className="flex items-center gap-x-2">
+                X Axis
+                <span className="text-muted-foreground">(Left to Right)</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <form.Field
+                name="windVelFuncX"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
+                        form={form}
+                        axis={Axis.X}
+                        functionPreset={functionPreset}
+                        setFunctionPreset={setFunctionPreset}
+                      />
+                      <InputGroup>
+                        <InputGroupTextarea
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Enter a custom function e.g. 0.5*t"
+                          rows={6}
+                          className="resize-none"
+                          aria-invalid={isInvalid}
                         />
-                        <InputGroup>
-                          <InputGroupTextarea
-                            id={field.name}
-                            name={field.name}
-                            value={field.state.value}
-                            onBlur={field.handleBlur}
-                            onChange={(e) => field.handleChange(e.target.value)}
-                            placeholder="Enter a custom function e.g. 0.5*t"
-                            rows={6}
-                            className="resize-none"
-                            aria-invalid={isInvalid}
-                          />
-                          <InputGroupAddon align="block-end">
-                            <InputGroupText className="tabular-nums">
-                              Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5 * t).
-                            </InputGroupText>
-                          </InputGroupAddon>
-                        </InputGroup>
-                        {isInvalid && (
-                          <FieldError errors={field.state.meta.errors} />
-                        )}
-                      </Field>
-                    );
-                  }}
-                />
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="y-axis">
-              <AccordionTrigger>
-                <div className="flex items-center gap-x-2">
-                  Y Axis
-                  <span className="text-muted-foreground">(Up to Down)</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <form.Field
-                  name="windVelFuncY"
-                  children={(field) => {
-                    const isInvalid =
-                      field.state.meta.isTouched && !field.state.meta.isValid;
-                    return (
-                      <Field data-invalid={isInvalid}>
-                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
-                          form={form}
-                          axis={Axis.Y}
-                          functionPreset={functionPreset}
-                          setFunctionPreset={setFunctionPreset}
+                        <InputGroupAddon align="block-end">
+                          <InputGroupText className="tabular-nums">
+                            Time variable (t) MUST exist in the function
+                            definition (e.g. 0.5 * t).
+                          </InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="y-axis">
+            <AccordionTrigger>
+              <div className="flex items-center gap-x-2">
+                Y Axis
+                <span className="text-muted-foreground">(Up to Down)</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <form.Field
+                name="windVelFuncY"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
+                        form={form}
+                        axis={Axis.Y}
+                        functionPreset={functionPreset}
+                        setFunctionPreset={setFunctionPreset}
+                      />
+                      <InputGroup>
+                        <InputGroupTextarea
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Enter a custom function e.g. 0.5*t"
+                          rows={6}
+                          className="resize-none"
+                          aria-invalid={isInvalid}
                         />
-                        <InputGroup>
-                          <InputGroupTextarea
-                            id={field.name}
-                            name={field.name}
-                            value={field.state.value}
-                            onBlur={field.handleBlur}
-                            onChange={(e) => field.handleChange(e.target.value)}
-                            placeholder="Enter a custom function e.g. 0.5*t"
-                            rows={6}
-                            className="resize-none"
-                            aria-invalid={isInvalid}
-                          />
-                          <InputGroupAddon align="block-end">
-                            <InputGroupText className="tabular-nums">
-                              Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5 * t).
-                            </InputGroupText>
-                          </InputGroupAddon>
-                        </InputGroup>
-                        {isInvalid && (
-                          <FieldError errors={field.state.meta.errors} />
-                        )}
-                      </Field>
-                    );
-                  }}
-                />
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="z-axis">
-              <AccordionTrigger>
-                <div className="flex items-center gap-x-2">
-                  Z Axis
-                  <span className="text-muted-foreground">
-                    (Forward to Backward)
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <form.Field
-                  name="windVelFuncZ"
-                  children={(field) => {
-                    const isInvalid =
-                      field.state.meta.isTouched && !field.state.meta.isValid;
-                    return (
-                      <Field data-invalid={isInvalid}>
-                        <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
-                          form={form}
-                          axis={Axis.Z}
-                          functionPreset={functionPreset}
-                          setFunctionPreset={setFunctionPreset}
+                        <InputGroupAddon align="block-end">
+                          <InputGroupText className="tabular-nums">
+                            Time variable (t) MUST exist in the function
+                            definition (e.g. 0.5 * t).
+                          </InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="z-axis">
+            <AccordionTrigger>
+              <div className="flex items-center gap-x-2">
+                Z Axis
+                <span className="text-muted-foreground">
+                  (Forward to Backward)
+                </span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <form.Field
+                name="windVelFuncZ"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <SimulationConfigFormWindVelocityFunctionInputFunctionPresetSelect
+                        form={form}
+                        axis={Axis.Z}
+                        functionPreset={functionPreset}
+                        setFunctionPreset={setFunctionPreset}
+                      />
+                      <InputGroup>
+                        <InputGroupTextarea
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Enter a custom function e.g. 0.5*t"
+                          rows={6}
+                          className="resize-none"
+                          aria-invalid={isInvalid}
                         />
-                        <InputGroup>
-                          <InputGroupTextarea
-                            id={field.name}
-                            name={field.name}
-                            value={field.state.value}
-                            onBlur={field.handleBlur}
-                            onChange={(e) => field.handleChange(e.target.value)}
-                            placeholder="Enter a custom function e.g. 0.5*t"
-                            rows={6}
-                            className="resize-none"
-                            aria-invalid={isInvalid}
-                          />
-                          <InputGroupAddon align="block-end">
-                            <InputGroupText className="tabular-nums">
-                              Time variable (t) MUST exist in the function
-                              definition (e.g. 0.5 * t).
-                            </InputGroupText>
-                          </InputGroupAddon>
-                        </InputGroup>
-                        {isInvalid && (
-                          <FieldError errors={field.state.meta.errors} />
-                        )}
-                      </Field>
-                    );
-                  }}
-                />
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="supported-math-functions">
-              <AccordionTrigger className="text-muted-foreground">
-                <div className="flex items-center gap-x-2 font-normal">
-                  <VariableIcon className="size-4" />
-                  Supported Math Functions
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Table>
-                  <TableCaption>
-                    A list of supported math functions for custom wind velocity
-                    definitions.
-                  </TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Function</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Object.entries(SUPPORTED_MATH_FUNCTIONS).map(
-                      ([category, functions]) =>
-                        functions.map((fn) => (
-                          <TableRow key={`${category}-${fn.display}`}>
-                            <TableCell className="text-muted-foreground text-xs">
-                              {category}
-                            </TableCell>
-                            <TableCell>
-                              <code>{fn.display}</code>
-                            </TableCell>
-                          </TableRow>
-                        )),
-                    )}
-                  </TableBody>
-                </Table>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="supported-math-constants">
-              <AccordionTrigger className="text-muted-foreground">
-                <div className="flex items-center gap-x-2 font-normal">
-                  <PiIcon className="size-4" />
-                  Supported Math Constants
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Table>
-                  <TableCaption>
-                    A list of supported math constants for custom wind velocity
-                    definitions.
-                  </TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Constant</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {Object.entries(SUPPORTED_MATH_CONSTANTS).flatMap(
-                      ([category, consts]) =>
-                        consts.map((c) => (
-                          <TableRow key={`const-${c}`}>
-                            <TableCell className="text-muted-foreground text-xs">
-                              {category}
-                            </TableCell>
-                            <TableCell>
-                              <code>{c}</code>
-                            </TableCell>
-                          </TableRow>
-                        )),
-                    )}
-                  </TableBody>
-                </Table>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </FieldGroup>
-      </Item>
+                        <InputGroupAddon align="block-end">
+                          <InputGroupText className="tabular-nums">
+                            Time variable (t) MUST exist in the function
+                            definition (e.g. 0.5 * t).
+                          </InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="supported-math-functions">
+            <AccordionTrigger className="text-muted-foreground">
+              <div className="flex items-center gap-x-2 font-normal">
+                <VariableIcon className="size-4" />
+                Supported Math Functions
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Table>
+                <TableCaption>
+                  A list of supported math functions for custom wind velocity
+                  definitions.
+                </TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Function</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {Object.entries(SUPPORTED_MATH_FUNCTIONS).map(
+                    ([category, functions]) =>
+                      functions.map((fn) => (
+                        <TableRow key={`${category}-${fn.display}`}>
+                          <TableCell className="text-muted-foreground text-xs">
+                            {category}
+                          </TableCell>
+                          <TableCell>
+                            <code>{fn.display}</code>
+                          </TableCell>
+                        </TableRow>
+                      )),
+                  )}
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="supported-math-constants">
+            <AccordionTrigger className="text-muted-foreground">
+              <div className="flex items-center gap-x-2 font-normal">
+                <PiIcon className="size-4" />
+                Supported Math Constants
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Table>
+                <TableCaption>
+                  A list of supported math constants for custom wind velocity
+                  definitions.
+                </TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Constant</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {Object.entries(SUPPORTED_MATH_CONSTANTS).flatMap(
+                    ([category, consts]) =>
+                      consts.map((c) => (
+                        <TableRow key={`const-${c}`}>
+                          <TableCell className="text-muted-foreground text-xs">
+                            {category}
+                          </TableCell>
+                          <TableCell>
+                            <code>{c}</code>
+                          </TableCell>
+                        </TableRow>
+                      )),
+                  )}
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </>
     );
   },
 });

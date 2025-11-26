@@ -15,7 +15,7 @@ const SimulationConfigFormDroneStartPositionInput = withForm({
   render: ({ form }) => {
     return (
       <div className="flex flex-col gap-y-3">
-        <h1>
+        <h1 className="text-sm font-medium">
           Drone Start Position&nbsp;
           <span className="text-muted-foreground text-sm font-medium">
             (meters)
