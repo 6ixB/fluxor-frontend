@@ -90,17 +90,26 @@ const SimulationConfigForm: React.FC = () => {
           className="mb-4 flex flex-col gap-4"
         >
           <FieldGroup className="flex flex-col gap-4">
-            <Item variant="outline">
+            <Item
+              variant="muted"
+              className="border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
+            >
               <SimulationConfigFormDroneStartPositionInput form={form} />
               <SimulationConfigFormDroneSpeedInput form={form} />
             </Item>
-            <Item variant="outline">
+            <Item
+              variant="muted"
+              className="border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
+            >
               <SimulationConfigFormTimeStepInput form={form} />
               <SimulationConfigFormStepsInput form={form} />
             </Item>
           </FieldGroup>
           <FieldGroup className="flex flex-col gap-4">
-            <Item variant="outline">
+            <Item
+              variant="muted"
+              className="border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
+            >
               <SimulationConfigFormWindVelocityFunctionInput
                 form={form}
                 functionPreset={functionPreset}
