@@ -86,6 +86,9 @@ type SimulationState = {
 
   canvasReady: boolean;
   setCanvasReady: (value: boolean) => void;
+
+  animationInfoOpen: boolean;
+  setAnimationInfoOpen: (value: boolean) => void;
 };
 
 export { type SimulationState };

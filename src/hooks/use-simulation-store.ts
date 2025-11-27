@@ -109,6 +109,12 @@ const useSimulationStoreBase = create<SimulationState>()(
         set((state) => {
           state.canvasReady = value;
         }),
+
+      animationInfoOpen: true,
+      setAnimationInfoOpen: (value) =>
+        set((state) => {
+          state.animationInfoOpen = value;
+        }),
     };
   }),
 );

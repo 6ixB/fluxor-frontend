@@ -1,4 +1,5 @@
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -19,10 +20,12 @@ import {
   PauseIcon,
   PlayIcon,
   RotateCcwIcon,
+  ScanTextIcon,
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 import { AnimationStatus } from "@/types/simulation.type";
+import { Toggle } from "@/components/ui/toggle";
 
 type ViewPortAnimationControlsProps = {
   onPlay: () => void;
@@ -49,6 +52,9 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
 
   const animationSpeed = useSimulationStore.use.animationSpeed();
   const setAnimationSpeed = useSimulationStore.use.setAnimationSpeed();
+
+  const animationInfoOpen = useSimulationStore.use.animationInfoOpen();
+  const setAnimationInfoOpen = useSimulationStore.use.setAnimationInfoOpen();
 
   const isDraggingRef = useRef(false);
   const wasPlayingRef = useRef(false);
@@ -104,11 +110,12 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
       className="absolute bottom-8 left-1/2 -translate-x-1/2"
     >
       <Card
-        className={`bg-background w-xl rounded-lg px-0 py-2 transition-opacity duration-300 ease-in-out ${
+        className={cn(
+          "bg-background xs:w-sm w-xs rounded-lg px-0 py-2 transition-opacity duration-300 ease-in-out hover:opacity-100 lg:w-xl",
           animationStatus === AnimationStatus.Playing
-            ? "opacity-50 hover:opacity-100"
-            : "opacity-100 hover:opacity-100"
-        } `}
+            ? "opacity-50"
+            : "opacity-100",
+        )}
       >
         <CardContent className="flex flex-col items-center justify-center gap-y-2">
           <Slider
@@ -261,6 +268,22 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
                 </ToggleGroup>
               </PopoverContent>
             </Popover>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Toggle
+                  size="sm"
+                  aria-label="ShowAnimationInfo"
+                  pressed={animationInfoOpen}
+                  onPressedChange={setAnimationInfoOpen}
+                  className="aria-pressed:bg-accent aria-pressed:text-accent-foreground"
+                >
+                  <ScanTextIcon />
+                </Toggle>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Show animation information</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </CardContent>
       </Card>
