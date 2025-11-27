@@ -13,8 +13,10 @@ const ServerStatus: React.FC = () => {
   const status = data?.status === "ok" && !isError ? "online" : "offline";
 
   return (
-    <Item className="absolute right-4 bottom-4 flex items-center gap-x-2 rounded-sm px-3 py-1">
-      <span className="text-muted-foreground text-xs">Server status</span>
+    <Item className="absolute top-4 right-4 flex items-center gap-x-2 rounded-sm px-3 py-1">
+      <span className="text-muted-foreground hidden text-xs sm:block">
+        Server status
+      </span>
       <Status status={status}>
         <StatusIndicator />
         <StatusLabel />
