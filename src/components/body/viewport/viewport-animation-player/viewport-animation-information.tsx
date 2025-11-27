@@ -12,7 +12,7 @@ const ViewPortAnimationInformation: React.FC = () => {
   return (
     <div
       id={TOUR_STEP_IDS.VIEWPORT_ANIMATION_INFORMATION}
-      className="bg-foreground/5 absolute top-4 right-4 flex w-80 flex-col gap-2 rounded-lg p-4 select-none"
+      className="bg-foreground/5 absolute top-16 left-4 flex w-80 flex-col gap-2 rounded-lg p-4 select-none"
     >
       <div className="grid grid-cols-2 gap-2">
         <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
