@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { Header } from "@/components/header/header";
 import { Body } from "@/components/body/body";
@@ -151,12 +152,13 @@ const steps: TourStep[] = [
 ];
 
 const AppContent: React.FC = () => {
+  const isMobile = useIsMobile();
   const canvasReady = useSimulationStore.use.canvasReady();
   const [openTour, setOpenTour] = useState(false);
   const { setSteps } = useTour();
 
   useEffect(() => {
-    if (!canvasReady) return;
+    if (!canvasReady || isMobile) return;
 
     setSteps(steps);
     const timer = setTimeout(() => {
@@ -164,7 +166,7 @@ const AppContent: React.FC = () => {
     }, 250);
 
     return () => clearTimeout(timer);
-  }, [setSteps, canvasReady]);
+  }, [setSteps, canvasReady, isMobile]);
 
   return (
     <div className="flex h-dvh w-full flex-col bg-neutral-100 dark:bg-neutral-900">
