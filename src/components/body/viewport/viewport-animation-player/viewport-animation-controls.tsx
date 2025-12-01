@@ -1,4 +1,5 @@
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,6 +74,8 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   const ts = useSimulationStore.use.ts();
   const playable = ts.length > 0;
 
+  const { open, isMobile } = useSidebar();
+
   const handleSpeedChange = (value: string) => {
     if (!value) return;
     setAnimationSpeed(parseFloat(value));
@@ -107,11 +110,12 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
   return (
     <div
       id={TOUR_STEP_IDS.VIEWPORT_ANIMATION_PLAYBACK_CONTROLS}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      className="xs:bottom-8 absolute bottom-0 left-1/2 -translate-x-1/2"
     >
       <Card
         className={cn(
-          "bg-background xs:w-sm w-xs rounded-lg px-0 py-2 transition-opacity duration-300 ease-in-out hover:opacity-100 lg:w-xl",
+          "bg-background xs:w-md w-dvw px-0 py-2 transition-opacity duration-300 ease-in-out hover:opacity-100 md:rounded-lg lg:w-xl",
+          open && !isMobile ? "sm:w-sm" : "sm:w-lg",
           animationStatus === AnimationStatus.Playing
             ? "opacity-50"
             : "opacity-100",
