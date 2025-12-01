@@ -19,9 +19,11 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Item } from "@/components/ui/item";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { cn } from "@/lib/utils";
 import TeX from "@matejmazur/react-katex";
 import "katex/dist/katex.min.css";
 import {
@@ -45,15 +47,17 @@ const InformationBody = ({ variant }: { variant: InformationBodyVariant }) => {
   return (
     <>
       <Header
-        className={
-          variant === "drawer" ? "-mb-1 items-start text-left" : "-mb-1"
-        }
+        className={cn(
+          "p-0",
+          variant === "drawer" && "mb-4 items-start text-left",
+          variant === "dialog" && "mb-0",
+        )}
       >
         <Title className="flex items-center text-2xl font-semibold">
           <DroneIcon />
           &nbsp;Fluxor
         </Title>
-        <Description className={variant === "drawer" ? "text-left" : ""}>
+        <Description className={cn(variant === "drawer" && "text-left")}>
           Fluxor is an interactive <strong>3D simulation environment</strong>
           &nbsp; for exploring the trajectory dynamics of a delivery drone under
           varying wind conditions. It builds on the mathematical model
@@ -69,7 +73,7 @@ const InformationBody = ({ variant }: { variant: InformationBodyVariant }) => {
           &nbsp;by Shiven Hu.
         </Description>
       </Header>
-      <Tabs defaultValue="quickstart" className="-mb-1">
+      <Tabs defaultValue="quickstart">
         <TabsList className="rounded-md">
           <TabsTrigger
             value="quickstart"
@@ -90,12 +94,12 @@ const InformationBody = ({ variant }: { variant: InformationBodyVariant }) => {
             className="flex items-center gap-x-2 rounded-sm"
           >
             <BrainIcon className="size-4" />
-            How It Works
+            Theory
           </TabsTrigger>
         </TabsList>
         <TabsContent value="quickstart">
           <Item variant="outline">
-            <ol className="text-muted-foreground list-decimal space-y-1 pl-6 text-sm">
+            <ol className="text-muted-foreground list-decimal space-y-1 pl-4 text-sm">
               <li>
                 Pick the drone&apos;s starting position, speed, and wind
                 settings.
@@ -110,7 +114,7 @@ const InformationBody = ({ variant }: { variant: InformationBodyVariant }) => {
         </TabsContent>
         <TabsContent value="features">
           <Item variant="outline">
-            <ul className="text-muted-foreground list-disc space-y-1 pl-6 text-sm">
+            <ul className="text-muted-foreground list-disc space-y-1 pl-4 text-sm">
               <li>Set the drone&apos;s 3D starting position and speed.</li>
               <li>Adjust the time step to control numerical accuracy.</li>
               <li>Watch real-time 3D trajectory animations.</li>
@@ -161,7 +165,12 @@ const InformationBody = ({ variant }: { variant: InformationBodyVariant }) => {
           </Item>
         </TabsContent>
       </Tabs>
-      <Footer className="text-muted-foreground flex flex-row items-center text-xs">
+      <Footer
+        className={cn(
+          "text-muted-foreground m-0 flex flex-row items-center p-0 text-xs",
+          variant === "drawer" && "mt-4",
+        )}
+      >
         <span>
           Built by&nbsp;
           <a
@@ -218,10 +227,10 @@ const InformationDialog = () => {
           <InfoIcon />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[90vh] overflow-y-auto">
-        <div className="mx-auto flex w-full max-w-2xl flex-col gap-y-4 px-4 pt-2 pb-4">
+      <DrawerContent className="max-h-[95%]">
+        <ScrollArea className="h-full overflow-y-auto p-6">
           <InformationBody variant="drawer" />
-        </div>
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );
