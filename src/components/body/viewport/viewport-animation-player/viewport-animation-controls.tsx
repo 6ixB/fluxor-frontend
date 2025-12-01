@@ -114,7 +114,7 @@ const ViewPortAnimationControls: React.FC<ViewPortAnimationControlsProps> = ({
     >
       <Card
         className={cn(
-          "bg-background xs:w-md w-dvw px-0 py-2 transition-opacity duration-300 ease-in-out hover:opacity-100 md:rounded-lg lg:w-xl",
+          "bg-background xs:border xs:w-md xs:rounded-lg w-dvw rounded-none border-t border-r-0 border-b-0 border-l-0 px-0 py-2 transition-opacity duration-300 ease-in-out hover:opacity-100 lg:w-xl",
           open && !isMobile ? "sm:w-sm" : "sm:w-lg",
           animationStatus === AnimationStatus.Playing
             ? "opacity-50"
