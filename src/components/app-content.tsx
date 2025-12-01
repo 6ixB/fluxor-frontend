@@ -12,7 +12,7 @@ import {
   InfoIcon,
   SlidersHorizontalIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const steps: TourStep[] = [
   {
@@ -156,11 +156,16 @@ const AppContent: React.FC = () => {
   const canvasReady = useSimulationStore.use.canvasReady();
   const [openTour, setOpenTour] = useState(false);
   const { setSteps } = useTour();
+  const hasOpenedTourRef = useRef(false);
 
   useEffect(() => {
     if (!canvasReady || isMobile) return;
 
+    if (hasOpenedTourRef.current) return;
+
     setSteps(steps);
+    hasOpenedTourRef.current = true;
+
     const timer = setTimeout(() => {
       setOpenTour(true);
     }, 250);
