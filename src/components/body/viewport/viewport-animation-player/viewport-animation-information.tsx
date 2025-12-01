@@ -1,3 +1,4 @@
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { Kbd } from "@/components/ui/kbd";
 import {
@@ -5,11 +6,14 @@ import {
   MouseIcon,
   MousePointerClickIcon,
   SpaceIcon,
+  Rotate3DIcon,
+  ZoomInIcon,
 } from "lucide-react";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 import { cn } from "@/lib/utils";
 
 const ViewPortAnimationInformation: React.FC = () => {
+  const isMobile = useIsMobile();
   const animationInfoOpen = useSimulationStore.use.animationInfoOpen();
 
   return (
@@ -22,36 +26,55 @@ const ViewPortAnimationInformation: React.FC = () => {
           : "pointer-events-none opacity-0",
       )}
     >
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">
-          <MousePointerClickIcon className="size-4" />
-        </Kbd>
-        Rotate (Left Mouse)
-      </div>
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">
-          <HandIcon className="size-4" />
-        </Kbd>
-        Pan (Right Mouse)
-      </div>
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">
-          <MouseIcon className="size-4" />
-        </Kbd>
-        Zoom (Middle Mouse)
-      </div>
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">F</Kbd> Reset Camera
-      </div>
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">
-          <SpaceIcon className="size-4" />
-        </Kbd>
-        Play/Pause
-      </div>
-      <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
-        <Kbd className="size-6">R</Kbd> Replay
-      </div>
+      {!isMobile ? (
+        <>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">
+              <MousePointerClickIcon className="size-4" />
+            </Kbd>
+            Rotate (Left Mouse)
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">
+              <HandIcon className="size-4" />
+            </Kbd>
+            Pan (Right Mouse)
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">
+              <MouseIcon className="size-4" />
+            </Kbd>
+            Zoom (Middle Mouse)
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">F</Kbd> Reset Camera
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">
+              <SpaceIcon className="size-4" />
+            </Kbd>
+            Play/Pause
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Kbd className="size-6">R</Kbd> Replay
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <Rotate3DIcon className="size-4" />
+            <span className="font-medium">One-finger drag</span> Rotate
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <HandIcon className="size-4" />
+            <span className="font-medium">Two-finger drag</span> Pan
+          </div>
+          <div className="text-muted-foreground flex items-center gap-x-2 text-xs">
+            <ZoomInIcon className="size-4" />
+            <span className="font-medium">Pinch</span> Zoom
+          </div>
+        </>
+      )}
     </div>
   );
 };
