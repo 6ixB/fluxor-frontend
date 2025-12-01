@@ -2,17 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { AnimationStatus } from "@/types/simulation.type";
 import { Canvas } from "@react-three/fiber";
-import {
-  ViewportFocusApi,
-  type FocusAPI,
-} from "@/components/body/viewport/viewport-animation-player/viewport-animation-focus-api";
-import { ViewPortAnimationControls } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
-import { ViewPortAnimationGround } from "@/components/body/viewport/viewport-animation-player/viewport-animation-ground";
-import { ViewPortAnimationLights } from "@/components/body/viewport/viewport-animation-player/viewport-animation-lights";
-import { ViewPortAnimationFreeCam } from "@/components/body/viewport/viewport-animation-player/viewport-animation-free-cam";
-import { ViewPortAnimationDronePath } from "@/components/body/viewport/viewport-animation-player/viewport-animation-drone-path";
-import { ViewPortAnimationTarget } from "@/components/body/viewport/viewport-animation-player/viewport-animation-target";
-import { ViewPortAnimationInformation } from "@/components/body/viewport/viewport-animation-player/viewport-animation-information";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
@@ -24,9 +13,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { ServerStatus } from "@/components/header/server-status";
-
-const cameraPos: [number, number, number] = [5, 5, 5];
-const cameraLookAtPos: [number, number, number] = [0, 0, 0];
+import { ViewPortAnimationCamera } from "./viewport-animation-camera";
+import { ViewPortAnimationGround } from "./viewport-animation-ground";
+import { ViewPortAnimationLights } from "./viewport-animation-lights";
+import { ViewPortAnimationDronePath } from "./viewport-animation-drone-path";
+import { ViewPortAnimationTarget } from "./viewport-animation-target";
+import { ViewPortAnimationControls } from "./viewport-animation-controls";
+import { ViewPortAnimationGizmoHelpers } from "./viewport-animation-gizmo-helpers";
+import { ViewPortAnimationInformation } from "./viewport-animation-information";
+import { CameraControls } from "@react-three/drei";
 
 const ViewPortAnimationPlayer: React.FC = () => {
   const animationResetKey = useSimulationStore.use.animationResetKey();
@@ -37,6 +32,12 @@ const ViewPortAnimationPlayer: React.FC = () => {
   const setCanvasReady = useSimulationStore.use.setCanvasReady();
   const [open, setOpen] = useState(false);
 
+  const cameraControlsRef = useRef<CameraControls | null>(null);
+
+  const animationStatus = useSimulationStore.use.animationStatus();
+  const ts = useSimulationStore.use.ts();
+  const playable = ts.length > 0;
+
   useEffect(() => {
     if (!canvasReady) {
       setOpen(true);
@@ -46,21 +47,89 @@ const ViewPortAnimationPlayer: React.FC = () => {
     setOpen(false);
   }, [canvasReady]);
 
-  const focusApiRef = useRef<FocusAPI | null>(null);
-  const handleFocus = useCallback(() => {
-    focusApiRef.current?.focus(cameraPos, cameraLookAtPos);
-  }, []);
-
   const handleAnimationEnd = useCallback(
     () => setAnimationStatus(AnimationStatus.Ended),
     [setAnimationStatus],
   );
-  const handleAnimationPlay = () => setAnimationStatus(AnimationStatus.Playing);
-  const handleAnimationPause = () => setAnimationStatus(AnimationStatus.Paused);
-  const handleAnimationReplay = () => {
+
+  const handleAnimationPlay = useCallback(
+    () => setAnimationStatus(AnimationStatus.Playing),
+    [setAnimationStatus],
+  );
+
+  const handleAnimationPause = useCallback(
+    () => setAnimationStatus(AnimationStatus.Paused),
+    [setAnimationStatus],
+  );
+
+  const handleAnimationReplay = useCallback(() => {
     setAnimationResetKey(animationResetKey + 1);
     setAnimationStatus(AnimationStatus.Paused);
-  };
+  }, [animationResetKey, setAnimationResetKey, setAnimationStatus]);
+
+  const handleAnimationFocus = useCallback(() => {
+    if (!cameraControlsRef.current) return;
+    cameraControlsRef.current.reset(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Avoid triggering while typing in inputs/textareas
+      const target = event.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.getAttribute("contenteditable") === "true")
+      ) {
+        return;
+      }
+
+      if (event.repeat) return;
+
+      // FOCUS (always allowed, even if not playable)
+      if (event.key === "f" || event.key === "F") {
+        event.preventDefault();
+        handleAnimationFocus();
+        return;
+      }
+
+      // Below this line we only act if animation is playable
+      if (!playable) return;
+
+      switch (event.key) {
+        case " ":
+          event.preventDefault();
+          if (animationStatus === AnimationStatus.Ended) break;
+
+          if (animationStatus === AnimationStatus.Playing) {
+            handleAnimationPause();
+          } else {
+            handleAnimationPlay();
+          }
+          break;
+
+        case "r":
+        case "R":
+          event.preventDefault();
+          handleAnimationReplay();
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    playable,
+    animationStatus,
+    handleAnimationPlay,
+    handleAnimationPause,
+    handleAnimationFocus,
+    handleAnimationReplay,
+  ]);
 
   return (
     <div
@@ -91,15 +160,11 @@ const ViewPortAnimationPlayer: React.FC = () => {
           setCanvasReady(true);
         }}
         gl={{ powerPreference: "low-power" }}
-        camera={{ position: cameraPos }}
       >
-        <ViewportFocusApi apiRef={focusApiRef} />
+        <ViewPortAnimationGizmoHelpers />
+        <ViewPortAnimationCamera cameraControlsRef={cameraControlsRef} />
         <ViewPortAnimationGround />
         <ViewPortAnimationLights />
-        <ViewPortAnimationFreeCam
-          onFocus={handleFocus}
-          onReplay={handleAnimationReplay}
-        />
         <ViewPortAnimationDronePath onEnd={handleAnimationEnd} />
         <ViewPortAnimationTarget />
       </Canvas>
@@ -107,7 +172,7 @@ const ViewPortAnimationPlayer: React.FC = () => {
         onPlay={handleAnimationPlay}
         onPause={handleAnimationPause}
         onReplay={handleAnimationReplay}
-        onFocus={handleFocus}
+        onFocus={handleAnimationFocus}
       />
       <ViewPortAnimationInformation />
       <ServerStatus />
