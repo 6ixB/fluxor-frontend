@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { Body } from "@/components/body/body";
+import { Header } from "@/components/header/header";
+import { TourAlertDialog, type TourStep } from "@/components/tour";
+import { Toaster } from "@/components/ui/sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
-import { Header } from "@/components/header/header";
-import { Body } from "@/components/body/body";
-import { Toaster } from "@/components/ui/sonner";
-import { TourAlertDialog, type TourStep } from "@/components/tour";
 import { useTour } from "@/hooks/use-tour";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
 import {
   DroneIcon,
   FullscreenIcon,
   InfoIcon,
   SlidersHorizontalIcon,
 } from "lucide-react";
-import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { useEffect, useState } from "react";
 
 const steps: TourStep[] = [
   {

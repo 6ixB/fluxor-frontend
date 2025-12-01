@@ -1,16 +1,16 @@
+import { Kbd } from "@/components/ui/kbd";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
-import { Kbd } from "@/components/ui/kbd";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { cn } from "@/lib/utils";
 import {
   HandIcon,
   MouseIcon,
   MousePointerClickIcon,
-  SpaceIcon,
   Rotate3DIcon,
+  SpaceIcon,
   ZoomInIcon,
 } from "lucide-react";
-import { TOUR_STEP_IDS } from "@/lib/tour-constants";
-import { cn } from "@/lib/utils";
 
 const ViewPortAnimationInformation: React.FC = () => {
   const isMobile = useIsMobile();

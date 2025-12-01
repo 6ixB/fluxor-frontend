@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -18,10 +18,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Item } from "@/components/ui/item";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import TeX from "@matejmazur/react-katex";
+import "katex/dist/katex.min.css";
 import {
   BrainIcon,
   CirclePlayIcon,
@@ -29,9 +31,7 @@ import {
   InfoIcon,
   ListChecksIcon,
 } from "lucide-react";
-import TeX from "@matejmazur/react-katex";
-import "katex/dist/katex.min.css";
-import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { useState } from "react";
 
 type InformationBodyVariant = "dialog" | "drawer";
 

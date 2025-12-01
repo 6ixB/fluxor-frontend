@@ -1,7 +1,6 @@
-import { createFormHook } from "@tanstack/react-form";
-import { fieldContext, formContext } from "@/lib/form-context";
-import { formOptions } from "@tanstack/react-form";
 import { defaults } from "@/lib/defaults";
+import { fieldContext, formContext } from "@/lib/form-context";
+import { createFormHook, formOptions } from "@tanstack/react-form";
 
 const simulationConfigFormOpts = formOptions({
   defaultValues: defaults.simulationConfig,
@@ -15,7 +14,7 @@ const { useAppForm, withForm } = createFormHook({
 });
 
 export {
+  simulationConfigFormOpts,
   useAppForm as useSimulationConfigForm,
   withForm,
-  simulationConfigFormOpts,
 };

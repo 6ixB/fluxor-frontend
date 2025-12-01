@@ -1,4 +1,9 @@
-import { useStore } from "@tanstack/react-form";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Field, FieldError } from "@/components/ui/field";
 import {
   InputGroup,
@@ -14,12 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   Table,
   TableBody,
   TableCaption,
@@ -29,15 +28,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  simulationConfigFormOpts,
+  withForm,
+} from "@/hooks/use-simulation-config-form";
+import type { FunctionPreset } from "@/types/simulation.type";
+import {
   ReverseWindVelFuncPresetValues,
   WindVelFuncPreset,
   WindVelFuncPresetValues,
 } from "@/types/simulation.type";
-import type { FunctionPreset } from "@/types/simulation.type";
-import {
-  simulationConfigFormOpts,
-  withForm,
-} from "@/hooks/use-simulation-config-form";
+import { useStore } from "@tanstack/react-form";
 import { PiIcon, VariableIcon } from "lucide-react";
 import { useEffect } from "react";
 

@@ -1,20 +1,23 @@
-import { useSimulationStore } from "@/hooks/use-simulation-store";
-import { useSidebar } from "@/components/ui/sidebar";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Card, CardContent } from "@/components/ui/card";
+import { useSidebar } from "@/components/ui/sidebar";
 import { Slider } from "@/components/ui/slider";
+import { Toggle } from "@/components/ui/toggle";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { cn } from "@/lib/utils";
+import { AnimationStatus } from "@/types/simulation.type";
 import {
   CircleGaugeIcon,
   FocusIcon,
@@ -24,9 +27,6 @@ import {
   ScanTextIcon,
 } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { TOUR_STEP_IDS } from "@/lib/tour-constants";
-import { AnimationStatus } from "@/types/simulation.type";
-import { Toggle } from "@/components/ui/toggle";
 
 type ViewPortAnimationControlsProps = {
   onPlay: () => void;

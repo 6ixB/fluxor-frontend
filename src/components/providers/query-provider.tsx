@@ -25,4 +25,4 @@ const QueryProvider = ({ children }: QueryProviderProps) => {
   );
 };
 
-export { type QueryProviderProps, QueryProvider };
+export { QueryProvider, type QueryProviderProps };

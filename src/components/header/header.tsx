@@ -1,7 +1,7 @@
 import { InformationDialog } from "@/components/header/information-dialog";
 import { ThemeModeToggle } from "@/components/header/theme-mode-toggle";
-import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { DroneIcon } from "lucide-react";
 
 const Header: React.FC = () => {

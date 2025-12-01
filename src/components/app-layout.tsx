@@ -1,6 +1,6 @@
+import { AppSidebar } from "@/components/app-sidebar";
 import { Providers } from "@/components/providers/providers";
 import { Analytics } from "@vercel/analytics/react";
-import { AppSidebar } from "@/components/app-sidebar";
 
 type AppLayoutProps = {
   children: React.ReactNode;

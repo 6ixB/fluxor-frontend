@@ -6,12 +6,12 @@ Source: https://sketchfab.com/3d-models/drone-animv1-af9e397e25b542bfaff8db7c829
 Title: Drone_AnimV1
 */
 
-import * as THREE from "three";
-import { useEffect, type JSX } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
-import type { GLTF } from "three-stdlib";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { AnimationStatus } from "@/types/simulation.type";
+import { useAnimations, useGLTF } from "@react-three/drei";
+import { useEffect, type JSX } from "react";
+import * as THREE from "three";
+import type { GLTF } from "three-stdlib";
 
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;

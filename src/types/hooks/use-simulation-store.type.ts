@@ -1,5 +1,7 @@
-import type { AnimationStatusType } from "@/types/simulation.type";
-import type { SimulationResultEntity } from "@/types/simulation.type";
+import type {
+  AnimationStatusType,
+  SimulationResultEntity,
+} from "@/types/simulation.type";
 
 type SimulationState = {
   /* 

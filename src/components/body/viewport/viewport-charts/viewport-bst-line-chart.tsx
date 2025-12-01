@@ -1,4 +1,3 @@
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 const ViewPortBTLineChart: React.FC = () => {
   const ts = useSimulationStore.use.ts();

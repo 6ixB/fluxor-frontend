@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import { fetchHealth } from "@/api/health.api";
 import { Item } from "@/components/ui/item";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
+import { useQuery } from "@tanstack/react-query";
 
 const ServerStatus: React.FC = () => {
   const { data, isError } = useQuery({

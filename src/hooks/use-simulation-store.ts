@@ -1,8 +1,8 @@
+import { createSelectors } from "@/lib/utils";
+import type { SimulationState } from "@/types/hooks/use-simulation-store.type";
+import { AnimationStatus } from "@/types/simulation.type";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import type { SimulationState } from "@/types/hooks/use-simulation-store.type";
-import { createSelectors } from "@/lib/utils";
-import { AnimationStatus } from "@/types/simulation.type";
 
 const keys = ["ts", "xs", "ys", "zs", "bxs", "bys", "bzs", "bs"] as const;
 type Key = (typeof keys)[number];

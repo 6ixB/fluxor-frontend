@@ -1,10 +1,14 @@
-import * as THREE from "three";
-import { useRef, useEffect, type RefObject } from "react";
-import { useSimulationStore } from "@/hooks/use-simulation-store";
-import { useFrame, type ThreeElements } from "@react-three/fiber";
-import { extend, type ThreeElement } from "@react-three/fiber";
 import { DroneModel } from "@/components/body/viewport/viewport-animation-player/drone-model";
+import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { AnimationStatus } from "@/types/simulation.type";
+import {
+  extend,
+  useFrame,
+  type ThreeElement,
+  type ThreeElements,
+} from "@react-three/fiber";
+import { useEffect, useRef, type RefObject } from "react";
+import * as THREE from "three";
 
 extend({ Line_: THREE.Line });
 

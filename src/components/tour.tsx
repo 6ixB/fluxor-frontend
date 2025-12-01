@@ -10,9 +10,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useTour } from "@/hooks/use-tour";
 import { cn } from "@/lib/utils";
 import { DroneIcon } from "lucide-react";
-import { useTour } from "@/hooks/use-tour";
 
 interface TourStep {
   content: React.ReactNode;
@@ -411,9 +411,9 @@ const TourAlertDialog: React.FC<{
 };
 
 export {
-  type TourStep,
-  type TourContextType,
+  TourAlertDialog,
   TourContext,
   TourProvider,
-  TourAlertDialog,
+  type TourContextType,
+  type TourStep,
 };

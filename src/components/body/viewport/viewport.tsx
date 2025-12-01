@@ -1,9 +1,9 @@
-import React, { Suspense, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Spinner } from "@/components/ui/spinner";
 import { ViewPortAnimationPlayer } from "@/components/body/viewport/viewport-animation-player/viewport-animation-player";
-import { ChartSplineIcon, RouteIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TOUR_STEP_IDS } from "@/lib/tour-constants";
+import { ChartSplineIcon, RouteIcon } from "lucide-react";
+import React, { Suspense, useState } from "react";
 
 const ViewPortChartsLazy = React.lazy(() =>
   import("@/components/body/viewport/viewport-charts/viewport-charts").then(

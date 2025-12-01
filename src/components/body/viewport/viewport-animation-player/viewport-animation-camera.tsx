@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { CameraControls } from "@react-three/drei";
+import { useEffect } from "react";
 
 type ViewPortAnimationCameraProps = {
   cameraControlsRef: React.RefObject<CameraControls | null>;

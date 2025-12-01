@@ -83,14 +83,14 @@ type AnimationStatusType =
   (typeof AnimationStatus)[keyof typeof AnimationStatus];
 
 export {
+  AnimationStatus,
+  ReverseWindVelFuncPresetValues,
   SimulationConfigDtoSchema,
   SimulationResultEntitySchema,
-  type SimulationConfigDto,
-  type SimulationResultEntity,
-  type FunctionPreset,
   WindVelFuncPreset,
   WindVelFuncPresetValues,
-  ReverseWindVelFuncPresetValues,
-  AnimationStatus,
   type AnimationStatusType,
+  type FunctionPreset,
+  type SimulationConfigDto,
+  type SimulationResultEntity,
 };

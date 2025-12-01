@@ -1,10 +1,10 @@
-import { StrictMode } from "react";
+import { AppBrowserRouter } from "@/components/app-browser-router";
+import { AppGlobalError } from "@/components/app-global-error";
+import "@/index.css";
 import { printSplashScreen } from "@/lib/utils";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
-import { AppGlobalError } from "@/components/app-global-error";
-import { AppBrowserRouter } from "@/components/app-browser-router";
-import "@/index.css";
 
 printSplashScreen();
 
