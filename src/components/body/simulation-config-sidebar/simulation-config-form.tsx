@@ -1,3 +1,8 @@
+import { SimulationConfigFormDroneSpeedInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-drone-speed-input";
+import { SimulationConfigFormDroneStartPositionInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-drone-start-position-input";
+import { SimulationConfigFormStepsInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-steps-input";
+import { SimulationConfigFormTimeStepInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-time-step-input";
+import { SimulationConfigFormWindVelocityFunctionInput } from "@/components/body/simulation-config-sidebar/simulation-config-form-wind-velocity-function-input";
 import { FieldGroup } from "@/components/ui/field";
 import { Item } from "@/components/ui/item";
 import {
@@ -10,11 +15,6 @@ import {
   type FunctionPreset,
 } from "@/types/simulation.type";
 import { useImmer } from "use-immer";
-import { SimulationConfigFormDroneSpeedInput } from "./simulation-config-form-drone-speed-input";
-import { SimulationConfigFormDroneStartPositionInput } from "./simulation-config-form-drone-start-position-input";
-import { SimulationConfigFormStepsInput } from "./simulation-config-form-steps-input";
-import { SimulationConfigFormTimeStepInput } from "./simulation-config-form-time-step-input";
-import { SimulationConfigFormWindVelocityFunctionInput } from "./simulation-config-form-wind-velocity-function-input";
 
 const SimulationConfigForm = withForm({
   ...simulationConfigFormOpts,

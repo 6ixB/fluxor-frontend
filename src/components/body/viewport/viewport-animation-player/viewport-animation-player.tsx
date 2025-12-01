@@ -1,3 +1,11 @@
+import { ViewPortAnimationCamera } from "@/components/body/viewport/viewport-animation-player/viewport-animation-camera";
+import { ViewPortAnimationControls } from "@/components/body/viewport/viewport-animation-player/viewport-animation-controls";
+import { ViewPortAnimationDronePath } from "@/components/body/viewport/viewport-animation-player/viewport-animation-drone-path";
+import { ViewPortAnimationGizmoHelpers } from "@/components/body/viewport/viewport-animation-player/viewport-animation-gizmo-helpers";
+import { ViewPortAnimationGround } from "@/components/body/viewport/viewport-animation-player/viewport-animation-ground";
+import { ViewPortAnimationInformation } from "@/components/body/viewport/viewport-animation-player/viewport-animation-information";
+import { ViewPortAnimationLights } from "@/components/body/viewport/viewport-animation-player/viewport-animation-lights";
+import { ViewPortAnimationTarget } from "@/components/body/viewport/viewport-animation-player/viewport-animation-target";
 import { ServerStatus } from "@/components/header/server-status";
 import {
   AlertDialog,
@@ -14,14 +22,6 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ViewPortAnimationCamera } from "./viewport-animation-camera";
-import { ViewPortAnimationControls } from "./viewport-animation-controls";
-import { ViewPortAnimationDronePath } from "./viewport-animation-drone-path";
-import { ViewPortAnimationGizmoHelpers } from "./viewport-animation-gizmo-helpers";
-import { ViewPortAnimationGround } from "./viewport-animation-ground";
-import { ViewPortAnimationInformation } from "./viewport-animation-information";
-import { ViewPortAnimationLights } from "./viewport-animation-lights";
-import { ViewPortAnimationTarget } from "./viewport-animation-target";
 
 const ViewPortAnimationPlayer: React.FC = () => {
   const animationResetKey = useSimulationStore.use.animationResetKey();

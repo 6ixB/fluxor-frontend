@@ -1,5 +1,6 @@
 import { runSimulation } from "@/api/simulation.api";
 import { SimulationConfigForm } from "@/components/body/simulation-config-sidebar/simulation-config-form";
+import { SimulationConfigFormControlButtons } from "@/components/body/simulation-config-sidebar/simulation-config-form-control-buttons";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +16,6 @@ import { SimulationConfigDtoSchema } from "@/types/simulation.type";
 import { useMutation } from "@tanstack/react-query";
 import { DroneIcon } from "lucide-react";
 import { toast } from "sonner";
-import { SimulationConfigFormControlButtons } from "./body/simulation-config-sidebar/simulation-config-form-control-buttons";
 
 const AppSidebar: React.FC = () => {
   const setStartPos = useSimulationStore.use.setStartPos();
