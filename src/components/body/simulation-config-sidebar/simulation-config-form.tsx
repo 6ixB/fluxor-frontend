@@ -37,7 +37,7 @@ const SimulationConfigForm = withForm({
         className="mb-4 flex flex-col gap-4 px-6"
       >
         <div className="flex h-full min-h-0 w-full flex-col gap-4 sm:max-w-md">
-          <div className="mt-4 mb-2 flex flex-col gap-2 p-0">
+          <div className="mt-4 flex flex-col gap-2 p-0">
             <h1 className="text-sm leading-none font-semibold">
               Simulation Config
             </h1>
