@@ -4,7 +4,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import Plot from "react-plotly.js";
@@ -15,12 +14,12 @@ const ViewPortXYZLineChart: React.FC = () => {
   const zs = useSimulationStore.use.zs();
 
   return (
-    <Card className="dark:bg-background col-span-2 row-span-2 h-full w-full rounded-lg">
+    <Card className="dark:bg-background flex aspect-square w-full flex-col rounded-md">
       <CardHeader>
-        <CardTitle>Trajectory</CardTitle>
         <CardDescription>Simulated drone's trajectory.</CardDescription>
       </CardHeader>
-      <CardContent className="h-full w-full">
+
+      <CardContent className="relative flex-1">
         <Plot
           data={[
             {
@@ -35,6 +34,7 @@ const ViewPortXYZLineChart: React.FC = () => {
           ]}
           layout={{
             autosize: true,
+            margin: { l: 0, r: 0, t: 0, b: 0 },
             paper_bgcolor: "rgba(0,0,0,0)",
             plot_bgcolor: "rgba(0,0,0,0)",
             scene: {
@@ -46,12 +46,15 @@ const ViewPortXYZLineChart: React.FC = () => {
             hovermode: false,
           }}
           config={{ staticPlot: false }}
-          style={{ width: "100%", height: "100%" }}
+          style={{ position: "absolute", inset: 0 }}
           useResizeHandler
         />
       </CardContent>
+
       <CardFooter>
-        <div className="text-muted-foreground text-sm">Showing x, y, z</div>
+        <div className="text-muted-foreground text-sm font-semibold">
+          Showing bs vs t
+        </div>
       </CardFooter>
     </Card>
   );

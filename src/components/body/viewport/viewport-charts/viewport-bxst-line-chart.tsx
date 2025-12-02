@@ -4,7 +4,6 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   type ChartConfig,
@@ -30,53 +29,51 @@ const ViewPortBXTLineChart: React.FC = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="dark:bg-background rounded-lg">
+    <Card className="dark:bg-background flex aspect-square w-full flex-col rounded-md">
       <CardHeader>
-        <CardTitle>X Speed vs Time</CardTitle>
         <CardDescription>
           Simulated drone's X-axis speed in 3D at each time point.
         </CardDescription>
       </CardHeader>
-      <CardContent className="h-full min-w-0 overflow-hidden px-0">
-        <div className="h-full max-h-96 w-full ps-4 pe-8">
-          <ChartContainer
-            config={chartConfig}
-            className="h-full w-full min-w-0 overflow-hidden"
-          >
-            <LineChart data={data}>
-              <CartesianGrid vertical={false} />
-              <YAxis width={40} />
-              <XAxis
-                dataKey="t"
-                type="number"
-                tickLine
-                axisLine
-                tickMargin={8}
-                interval="preserveStartEnd"
-                tickCount={8}
-                domain={["auto", "auto"]}
-                tickFormatter={(v) =>
-                  typeof v === "number" ? v.toFixed(1) : String(v)
-                }
-              />
-              <ChartTooltip
-                cursor
-                content={<ChartTooltipContent />}
-                wrapperStyle={{ pointerEvents: "none" }}
-              />
-              <Line
-                dataKey="bxs"
-                type="monotone"
-                stroke="#00ff00"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ChartContainer>
-        </div>
+      <CardContent className="flex-1 pl-0">
+        <ChartContainer config={chartConfig} className="pr-2">
+          <LineChart data={data}>
+            <CartesianGrid />
+            <YAxis
+              dataKey="bxs"
+              type="number"
+              tickLine
+              axisLine
+              tickMargin={8}
+              tickCount={8}
+            />
+            <XAxis
+              dataKey="t"
+              type="number"
+              tickLine
+              axisLine
+              tickMargin={8}
+              tickCount={8}
+            />
+            <ChartTooltip
+              cursor
+              content={<ChartTooltipContent />}
+              wrapperStyle={{ pointerEvents: "none" }}
+            />
+            <Line
+              dataKey="bxs"
+              type="monotone"
+              stroke="#00ff00"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ChartContainer>
       </CardContent>
       <CardFooter>
-        <div className="text-muted-foreground text-sm">Showing bx vs t</div>
+        <div className="text-muted-foreground text-sm font-semibold">
+          Showing bxs vs t
+        </div>
       </CardFooter>
     </Card>
   );
