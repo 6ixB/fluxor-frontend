@@ -69,8 +69,8 @@ importers:
         specifier: ^1.2.4
         version: 1.2.4(@types/react-dom@19.2.2(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)
       '@react-three/drei':
-        specifier: ^10.7.6
-        version: 10.7.6(@react-three/fiber@9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0))(@types/react@19.2.7)(@types/three@0.181.0)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)
+        specifier: ^10.7.7
+        version: 10.7.7(@react-three/fiber@9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0))(@types/react@19.2.7)(@types/three@0.181.0)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)
       '@react-three/fiber':
         specifier: ^9.4.0
         version: 9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)
@@ -376,8 +376,8 @@ packages:
   '@mediapipe/tasks-vision@0.10.17':
     resolution: {integrity: sha512-CZWV/q6TTe8ta61cZXjfnnHsfWIdFhms03M9T7Cnd5y2mdpylJM0rF1qRq+wsQVRMLz1OYPVEBU9ph2Bx8cxrg==}
 
-  '@monogrid/gainmap-js@3.1.0':
-    resolution: {integrity: sha512-Obb0/gEd/HReTlg8ttaYk+0m62gQJmCblMOjHSMHRrBP2zdfKMHLCRbh/6ex9fSUJMKdjjIEiohwkbGD3wj2Nw==}
+  '@monogrid/gainmap-js@3.4.0':
+    resolution: {integrity: sha512-2Z0FATFHaoYJ8b+Y4y4Hgfn3FRFwuU5zRrk+9dFWp4uGAdHGqVEdP7HP+gLA3X469KXHmfupJaUbKo1b/aDKIg==}
     peerDependencies:
       three: '>= 0.159.0'
 
@@ -974,8 +974,8 @@ packages:
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
 
-  '@react-three/drei@10.7.6':
-    resolution: {integrity: sha512-ZSFwRlRaa4zjtB7yHO6Q9xQGuyDCzE7whXBhum92JslcMRC3aouivp0rAzszcVymIoJx6PXmibyP+xr+zKdwLg==}
+  '@react-three/drei@10.7.7':
+    resolution: {integrity: sha512-ff+J5iloR0k4tC++QtD/j9u3w5fzfgFAWDtAGQah9pF2B1YgOq/5JxqY0/aVoQG5r3xSZz0cv5tk2YuBob4xEQ==}
     peerDependencies:
       '@react-three/fiber': ^9.0.0
       react: ^19
@@ -1634,9 +1634,9 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camera-controls@3.1.1:
-    resolution: {integrity: sha512-zC3DcoQPJ0CbTZ8WHthzi8nMvVF71cppOTBcH4cMLreMkU3y3fzBPViGvz1BefWPo9+kv9BP41tvIsabsXTz+Q==}
-    engines: {node: '>=24.4.0', npm: '>=11.4.2'}
+  camera-controls@3.1.2:
+    resolution: {integrity: sha512-xkxfpG2ECZ6Ww5/9+kf4mfg1VEYAoe9aDSY+IwF0UEs7qEzwy0aVRfs2grImIECs/PoBtWFrh7RXsQkwG922JA==}
+    engines: {node: '>=22.0.0', npm: '>=10.5.1'}
     peerDependencies:
       three: '>=0.126.1'
 
@@ -2244,8 +2244,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hls.js@1.6.14:
-    resolution: {integrity: sha512-CSpT2aXsv71HST8C5ETeVo+6YybqCpHBiYrCRQSn3U5QUZuLTSsvtq/bj+zuvjLVADeKxoebzo16OkH8m1+65Q==}
+  hls.js@1.6.15:
+    resolution: {integrity: sha512-E3a5VwgXimGHwpRGV+WxRTKeSp2DW5DI5MWv34ulL3t5UNmyJWCQ1KmLEHbYzcfThfXG8amBL+fCYPneGHC4VA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -3548,7 +3548,7 @@ snapshots:
 
   '@mediapipe/tasks-vision@0.10.17': {}
 
-  '@monogrid/gainmap-js@3.1.0(three@0.181.0)':
+  '@monogrid/gainmap-js@3.4.0(three@0.181.0)':
     dependencies:
       promise-worker-transferable: 1.0.4
       three: 0.181.0
@@ -4193,18 +4193,18 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-three/drei@10.7.6(@react-three/fiber@9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0))(@types/react@19.2.7)(@types/three@0.181.0)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)':
+  '@react-three/drei@10.7.7(@react-three/fiber@9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0))(@types/react@19.2.7)(@types/three@0.181.0)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)':
     dependencies:
       '@babel/runtime': 7.28.4
       '@mediapipe/tasks-vision': 0.10.17
-      '@monogrid/gainmap-js': 3.1.0(three@0.181.0)
+      '@monogrid/gainmap-js': 3.4.0(three@0.181.0)
       '@react-three/fiber': 9.4.0(@types/react@19.2.7)(immer@10.2.0)(react-dom@19.2.0(react@19.2.1))(react@19.2.1)(three@0.181.0)
       '@use-gesture/react': 10.3.1(react@19.2.1)
-      camera-controls: 3.1.1(three@0.181.0)
+      camera-controls: 3.1.2(three@0.181.0)
       cross-env: 7.0.3
       detect-gpu: 5.0.70
       glsl-noise: 0.0.0
-      hls.js: 1.6.14
+      hls.js: 1.6.15
       maath: 0.10.8(@types/three@0.181.0)(three@0.181.0)
       meshline: 3.3.1(three@0.181.0)
       react: 19.2.1
@@ -4810,7 +4810,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camera-controls@3.1.1(three@0.181.0):
+  camera-controls@3.1.2(three@0.181.0):
     dependencies:
       three: 0.181.0
 
@@ -5476,7 +5476,7 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hls.js@1.6.14: {}
+  hls.js@1.6.15: {}
 
   iconv-lite@0.4.24:
     dependencies:
