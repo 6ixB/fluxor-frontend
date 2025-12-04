@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# Fluxor — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive web app for simulating and visualizing a drone’s flight through a wind field. Configure parameters, run the simulation via a backend API, and explore results in a 3D viewport and charts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Simulation config: starting position, drone speed, time step, steps, and wind velocity functions (presets or custom).
+- 3D viewport: animated path with camera controls, target marker, gizmos, and lights (three.js via react-three-fiber).
+- Charts: time-series of position and velocity components, lazy-loaded for performance.
+- Server status: periodic health check indicator.
+- Theming: light/dark with persistence.
+- Onboarding tour: highlights core UI areas.
 
-## React Compiler
+## Quick Start
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Prerequisites: Node 20+, pnpm 10+, a running backend exposing health and simulation endpoints.
 
-## Expanding the ESLint configuration
+1) Install deps
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2) Set environment
+Create `.env.local` with your backend base URL:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+VITE_API_BASE_URL=http://localhost:8000
 ```
+
+3) Run dev server
+
+```sh
+pnpm dev
+```
+
+4) Build and preview
+
+```sh
+pnpm build
+pnpm preview
+```
+
+## Environment Variables
+
+- `VITE_API_BASE_URL` (required): Base URL of the backend (e.g. <http://localhost:8000>). Used by `src/api/health.api.ts` and `src/api/simulation.api.ts`.
+
+## Architecture
+
+- Bundler: Vite (rolldown-vite). Alias `@` → `src`.
+- UI: React 19 + Tailwind CSS v4 + Radix UI wrappers in `src/components/ui/**`.
+- State: Zustand (+ Immer) store in `src/hooks/use-simulation-store.ts` with selector helper `createSelectors`.
+- Data fetching: TanStack Query in `QueryProvider` with devtools auto-enabled in development.
+- Validation: Zod schemas in `src/types/**` ensure runtime safety of API payloads.
+- Forms: TanStack React Form via `createFormHook` with defaults in `src/lib/defaults.ts`.
+- 3D/Charts: `@react-three/fiber` + `@react-three/drei`, Plotly/Recharts (charts lazy-loaded).
+- Routing: React Router with SPA rewrite (`vercel.json`).
+
+Data flow (typical):
+
+1) User adjusts config in the sidebar form.
+2) Frontend posts config to `${VITE_API_BASE_URL}/simulations/run`.
+3) Response is validated (Zod) and stored in Zustand.
+4) Viewport and charts render from store arrays (`ts,xs,ys,zs,bxs,bys,bzs,bs`).
+
+## Keyboard Shortcuts (Viewport)
+
+- `space`: Play/Pause (when animation is playable)
+- `r`: Replay
+- `f`: Focus/reset camera
+
+## Scripts
+
+- `pnpm dev`: Start dev server
+- `pnpm build`: Type-check then build
+- `pnpm preview`: Preview production build
+- `pnpm lint`: Run ESLint
+
+## Project Structure (abridged)
+
+```sh
+src/
+  api/                 # fetch + Zod-validated API calls
+  components/          # UI, layout, viewport, providers, tour
+  hooks/               # Zustand store, form and utility hooks
+  lib/                 # defaults, form contexts, utils, tour constants
+  types/               # Zod schemas and shared types
+  index.css            # Tailwind v4 theme and base styles
+```
+
+Key files:
+
+- `src/components/providers/providers.tsx`: App-wide providers (Query, Theme, Tour, Sidebar)
+- `src/components/body/viewport/viewport-animation-player.tsx`: 3D scene & controls
+- `src/hooks/use-simulation-store.ts`: Global simulation state + selectors
+- `src/api/simulation.api.ts`: Runs simulation; validates with `SimulationResultEntitySchema`
+- `src/types/simulation.type.ts`: DTO schema and wind velocity presets
+
+## Deployment
+
+- Vercel-ready SPA: `vercel.json` rewrites all routes to `index.html`.
+- Set `VITE_API_BASE_URL` in your hosting environment.
+
+## Contributing
+
+- Use `@` alias imports (`@/…`).
+- Keep types/Zod schemas in `src/types/**` and API modules in `src/api/**`.
+- Follow repo ESLint/Prettier configs (Tailwind plugin included).
+
+## Credits
+
+- Author: <https://github.com/6ixB>
