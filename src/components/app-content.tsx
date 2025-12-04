@@ -86,7 +86,7 @@ const steps: TourStep[] = [
       </div>
     ),
     selectorId: TOUR_STEP_IDS.VIEWPORT_ANIMATION_INFORMATION,
-    position: "left",
+    position: "right",
     onClickWithinArea: () => {},
   },
   {
