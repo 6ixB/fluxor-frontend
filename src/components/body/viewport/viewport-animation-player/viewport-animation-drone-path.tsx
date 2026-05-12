@@ -72,7 +72,6 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
   const animationResetKey = useSimulationStore.use.animationResetKey();
   const animationStatus = useSimulationStore.use.animationStatus();
   const animationSpeed = useSimulationStore.use.animationSpeed();
-  const animationStep = useSimulationStore.use.animationStep();
   const animationProgress = useSimulationStore.use.animationProgress();
   const animationMaxProgress = useSimulationStore.use.animationMaxProgress();
 
@@ -103,12 +102,20 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
 
   const notifiedRef = useRef(false);
 
+  // Live playback state — avoids ~60Hz Zustand writes that re-render slider/etc.
+  const progressRef = useRef(0);
+  const stepRef = useRef(0);
+  const flushAccumRef = useRef(0);
+
   useEffect(() => {
     if (!hasPath || !ts.length) return;
 
     notifiedRef.current = false;
 
     const total = ts[ts.length - 1] - ts[0];
+    progressRef.current = 0;
+    stepRef.current = 0;
+    flushAccumRef.current = 0;
     setAnimationStep(0);
     setAnimationProgress(0);
     setAnimationMaxProgress(total);
@@ -146,10 +153,17 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     setAnimationMaxProgress,
   ]);
 
+  // Sync from store (seek via slider, reset). Skipped during play so it doesn't
+  // duplicate the work useFrame is already doing each frame.
   useEffect(() => {
+    if (playing) return;
+
+    progressRef.current = animationProgress;
+
     if (animationProgress < animationMaxProgress) {
       const t0 = ts[0];
-      const i = getAnimationStep(animationStep, animationProgress, ts, t0);
+      const i = getAnimationStep(stepRef.current, animationProgress, ts, t0);
+      stepRef.current = i;
       setAnimationStep(i);
       setDronePathPos(i, xs, ys, zs, droneRef, lineGeoRef);
 
@@ -158,11 +172,11 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
       }
     }
   }, [
+    playing,
     ts,
     xs,
     ys,
     zs,
-    animationStep,
     animationProgress,
     animationMaxProgress,
     animationStatus,
@@ -175,13 +189,14 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
     if (!playing) return;
 
     const t0 = ts[0];
-    const elapsed = animationProgress + delta * animationSpeed;
     const total = ts[ts.length - 1] - t0;
-
-    setAnimationProgress(elapsed);
+    const elapsed = progressRef.current + delta * animationSpeed;
+    progressRef.current = elapsed;
 
     if (elapsed >= total) {
       const last = ts.length - 1;
+      stepRef.current = last;
+      progressRef.current = total;
 
       droneRef.current.position.set(
         -1 * (xs[last] ?? 0),
@@ -196,6 +211,8 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
         );
       }
 
+      setAnimationProgress(total);
+      setAnimationStep(last);
       setAnimationStatus(AnimationStatus.Ended);
 
       if (!notifiedRef.current) {
@@ -205,9 +222,18 @@ const ViewPortAnimationDronePath: React.FC<ViewPortAnimationDronePathProps> = ({
       return;
     }
 
-    const i = getAnimationStep(animationStep, animationProgress, ts, t0);
-    setAnimationStep(i);
+    const i = getAnimationStep(stepRef.current, elapsed, ts, t0);
+    stepRef.current = i;
     setDronePathPos(i, xs, ys, zs, droneRef, lineGeoRef);
+
+    // Throttle store flush to ~20Hz so the slider/UI update without forcing
+    // a re-render on every frame.
+    flushAccumRef.current += delta;
+    if (flushAccumRef.current >= 0.05) {
+      flushAccumRef.current = 0;
+      setAnimationProgress(elapsed);
+      setAnimationStep(i);
+    }
   });
 
   return (

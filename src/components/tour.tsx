@@ -131,15 +131,17 @@ const TourProvider: React.FC<TourProviderProps> = ({
   }, [currentStep, steps]);
 
   useEffect(() => {
+    if (currentStep < 0) return;
+
     updateElementPosition();
     window.addEventListener("resize", updateElementPosition);
-    window.addEventListener("scroll", updateElementPosition);
+    window.addEventListener("scroll", updateElementPosition, { passive: true });
 
     return () => {
       window.removeEventListener("resize", updateElementPosition);
       window.removeEventListener("scroll", updateElementPosition);
     };
-  }, [updateElementPosition]);
+  }, [updateElementPosition, currentStep]);
 
   const nextStep = useCallback(async () => {
     setCurrentStep((prev) => {
@@ -269,19 +271,19 @@ const TourProvider: React.FC<TourProviderProps> = ({
               )}
             />
 
+            {(() => {
+              const contentPos = calculateContentPosition(
+                elementPosition,
+                steps[currentStep]?.position,
+              );
+              return (
             <motion.div
               initial={{ opacity: 0, y: 10, top: 50, right: 50 }}
               animate={{
                 opacity: 1,
                 y: 0,
-                top: calculateContentPosition(
-                  elementPosition,
-                  steps[currentStep]?.position,
-                ).top,
-                left: calculateContentPosition(
-                  elementPosition,
-                  steps[currentStep]?.position,
-                ).left,
+                top: contentPos.top,
+                left: contentPos.left,
               }}
               transition={{
                 duration: 0.8,
@@ -291,10 +293,7 @@ const TourProvider: React.FC<TourProviderProps> = ({
               exit={{ opacity: 0, y: 10 }}
               style={{
                 position: "absolute",
-                width: calculateContentPosition(
-                  elementPosition,
-                  steps[currentStep]?.position,
-                ).width,
+                width: contentPos.width,
               }}
               className="bg-background relative z-100 rounded-lg border p-4 shadow-lg"
             >
@@ -338,6 +337,8 @@ const TourProvider: React.FC<TourProviderProps> = ({
                 </div>
               </AnimatePresence>
             </motion.div>
+              );
+            })()}
           </>
         )}
       </AnimatePresence>

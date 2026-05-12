@@ -9,7 +9,7 @@ Title: Drone_AnimV1
 import { useSimulationStore } from "@/hooks/use-simulation-store";
 import { AnimationStatus } from "@/types/simulation.type";
 import { useAnimations, useGLTF } from "@react-three/drei";
-import { useEffect, type JSX } from "react";
+import { memo, useEffect, type JSX } from "react";
 import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
 
@@ -118,7 +118,7 @@ type DroneModelProps = JSX.IntrinsicElements["group"] & {
   ref: React.RefObject<THREE.Group>;
 };
 
-const DroneModel: React.FC<DroneModelProps> = ({ ref, ...props }) => {
+const DroneModelImpl: React.FC<DroneModelProps> = ({ ref, ...props }) => {
   const { nodes, materials, animations } = useGLTF(
     "/drone_animv1.glb",
   ) as unknown as GLTFResult;
@@ -718,5 +718,7 @@ const DroneModel: React.FC<DroneModelProps> = ({ ref, ...props }) => {
 };
 
 useGLTF.preload("/drone_animv1.glb");
+
+const DroneModel = memo(DroneModelImpl);
 
 export { DroneModel };

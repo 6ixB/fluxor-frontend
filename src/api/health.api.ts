@@ -16,8 +16,7 @@ async function fetchHealth(): Promise<HealthResponseEntity> {
 
   const data = await response.json();
 
-  const validatedHealthResponse =
-    await HealthResponseEntitySchema.safeParseAsync(data);
+  const validatedHealthResponse = HealthResponseEntitySchema.safeParse(data);
 
   if (!validatedHealthResponse.success) {
     throw new Error("Failed to validate simulation result");

@@ -51,7 +51,7 @@ async function runSimulation(
   const data = await response.json();
 
   const validatedSimulationResult =
-    await SimulationResultEntitySchema.safeParseAsync(data);
+    SimulationResultEntitySchema.safeParse(data);
 
   if (!validatedSimulationResult.success) {
     throw new Error("Failed to validate simulation result");

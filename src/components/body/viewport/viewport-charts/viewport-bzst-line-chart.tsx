@@ -12,21 +12,23 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { useMemo } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+
+const chartConfig = {
+  bzs: { label: "BZ", color: "#00ff00" },
+} satisfies ChartConfig;
 
 const ViewPortBZTLineChart: React.FC = () => {
   const ts = useSimulationStore.use.ts();
   const bzs = useSimulationStore.use.bzs();
 
-  const dataLength = Math.min(ts.length, bzs.length);
-  const data = Array.from({ length: dataLength }, (_, i) => ({
-    t: ts[i],
-    bzs: bzs[i],
-  }));
-
-  const chartConfig = {
-    bzs: { label: "BZ", color: "#00ff00" },
-  } satisfies ChartConfig;
+  const data = useMemo(() => {
+    const dataLength = Math.min(ts.length, bzs.length);
+    const out = new Array(dataLength);
+    for (let i = 0; i < dataLength; i++) out[i] = { t: ts[i], bzs: bzs[i] };
+    return out;
+  }, [ts, bzs]);
 
   return (
     <Card className="dark:bg-background flex aspect-square w-full flex-col rounded-md">
@@ -66,6 +68,7 @@ const ViewPortBZTLineChart: React.FC = () => {
               stroke="#00ff00"
               strokeWidth={2}
               dot={false}
+              isAnimationActive={false}
             />
           </LineChart>
         </ChartContainer>

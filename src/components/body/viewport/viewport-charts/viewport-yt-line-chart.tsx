@@ -12,21 +12,23 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useSimulationStore } from "@/hooks/use-simulation-store";
+import { useMemo } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+
+const chartConfig = {
+  ys: { label: "Y", color: "#00ff00" },
+} satisfies ChartConfig;
 
 const ViewPortYTLineChart: React.FC = () => {
   const ts = useSimulationStore.use.ts();
   const ys = useSimulationStore.use.ys();
 
-  const dataLength = Math.min(ts.length, ys.length);
-  const data = Array.from({ length: dataLength }, (_, i) => ({
-    t: ts[i],
-    ys: ys[i],
-  }));
-
-  const chartConfig = {
-    ys: { label: "Y", color: "#00ff00" },
-  } satisfies ChartConfig;
+  const data = useMemo(() => {
+    const dataLength = Math.min(ts.length, ys.length);
+    const out = new Array(dataLength);
+    for (let i = 0; i < dataLength; i++) out[i] = { t: ts[i], ys: ys[i] };
+    return out;
+  }, [ts, ys]);
 
   return (
     <Card className="dark:bg-background flex aspect-square w-full flex-col rounded-md">
@@ -66,6 +68,7 @@ const ViewPortYTLineChart: React.FC = () => {
               stroke="#00ff00"
               strokeWidth={2}
               dot={false}
+              isAnimationActive={false}
             />
           </LineChart>
         </ChartContainer>
