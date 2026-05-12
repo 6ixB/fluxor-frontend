@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Fluxor — Interactive 3D drone trajectory simulator under wind">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#171717"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#262626"/>
+    </pattern>
+    <radialGradient id="accent" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trajectory" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#60a5fa" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.55"/>
+    </linearGradient>
+    <filter id="droneGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity="0.55"/>
+
+  <!-- ===== RIGHT SIDE: VISUALIZATION ===== -->
+  <!-- Glow halo -->
+  <circle cx="930" cy="320" r="340" fill="url(#accent)"/>
+
+  <!-- Wind streamlines -->
+  <g stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.22" stroke-dasharray="3 8" stroke-linecap="round">
+    <path d="M 620 120 Q 870 100 1180 140"/>
+    <path d="M 620 200 Q 870 180 1180 220"/>
+    <path d="M 620 430 Q 870 410 1180 450"/>
+    <path d="M 620 510 Q 870 490 1180 530"/>
+  </g>
+  <text x="620" y="90" font-family="ui-monospace, 'SF Mono', Consolas, monospace" font-size="13" fill="#60a5fa" opacity="0.7" letter-spacing="1">w(x, y, z, t) →</text>
+
+  <!-- Trajectory curve -->
+  <path d="M 660 540 Q 760 400 920 325 T 1140 220" stroke="url(#trajectory)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Waypoints -->
+  <g fill="#60a5fa">
+    <circle cx="660" cy="540" r="4" opacity="0.35"/>
+    <circle cx="730" cy="445" r="4" opacity="0.5"/>
+    <circle cx="810" cy="380" r="4" opacity="0.65"/>
+  </g>
+
+  <!-- Target marker -->
+  <g transform="translate(1140, 220)">
+    <circle r="18" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.95"/>
+    <circle r="9" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.7"/>
+    <circle r="3" fill="#ef4444"/>
+  </g>
+  <text x="1118" y="188" font-family="ui-monospace, 'SF Mono', Consolas, monospace" font-size="13" fill="#ef4444" opacity="0.9" text-anchor="end" letter-spacing="1">target</text>
+
+  <!-- Drone (Lucide drone icon, scaled up) -->
+  <g transform="translate(920, 325)">
+    <g transform="translate(-100, -100) scale(8.3)" stroke="#fafafa" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#droneGlow)">
+      <path d="M10 10 7 7"/>
+      <path d="m10 14-3 3"/>
+      <path d="m14 10 3-3"/>
+      <path d="m14 14 3 3"/>
+      <path d="M14.205 4.139a4 4 0 1 1 5.439 5.863"/>
+      <path d="M19.637 14a4 4 0 1 1-5.432 5.868"/>
+      <path d="M4.367 10a4 4 0 1 1 5.438-5.862"/>
+      <path d="M9.795 19.862a4 4 0 1 1-5.429-5.873"/>
+      <rect x="10" y="8" width="4" height="8" rx="1"/>
+    </g>
+  </g>
+
+  <!-- ===== LEFT SIDE: TEXT ===== -->
+  <!-- Top-left brand chip -->
+  <g transform="translate(64, 64)">
+    <g transform="scale(1.6)" stroke="#fafafa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M10 10 7 7"/>
+      <path d="m10 14-3 3"/>
+      <path d="m14 10 3-3"/>
+      <path d="m14 14 3 3"/>
+      <path d="M14.205 4.139a4 4 0 1 1 5.439 5.863"/>
+      <path d="M19.637 14a4 4 0 1 1-5.432 5.868"/>
+      <path d="M4.367 10a4 4 0 1 1 5.438-5.862"/>
+      <path d="M9.795 19.862a4 4 0 1 1-5.429-5.873"/>
+      <rect x="10" y="8" width="4" height="8" rx="1"/>
+    </g>
+    <text x="56" y="30" fill="#fafafa" font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="700" letter-spacing="4">FLUXOR</text>
+  </g>
+
+  <!-- Headline -->
+  <g font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="800" letter-spacing="-2">
+    <text x="64" y="270" fill="#fafafa" font-size="84">3D drone flight,</text>
+    <text x="64" y="362" fill="#60a5fa" font-size="84">simulated.</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="64" y="420" font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="400" fill="#a3a3a3">Explore delivery drone trajectories under</text>
+  <text x="64" y="452" font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="400" fill="#a3a3a3">varying wind conditions — interactively.</text>
+
+  <!-- Feature pills -->
+  <g transform="translate(64, 500)" font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="500" fill="#d4d4d4">
+    <g>
+      <rect width="186" height="34" rx="17" fill="none" stroke="#404040"/>
+      <text x="93" y="22" text-anchor="middle">4th-order Runge-Kutta</text>
+    </g>
+    <g transform="translate(200, 0)">
+      <rect width="116" height="34" rx="17" fill="none" stroke="#404040"/>
+      <text x="58" y="22" text-anchor="middle">three.js</text>
+    </g>
+    <g transform="translate(332, 0)">
+      <rect width="170" height="34" rx="17" fill="none" stroke="#404040"/>
+      <text x="85" y="22" text-anchor="middle">Custom wind fields</text>
+    </g>
+  </g>
+
+  <!-- Bottom URL + author -->
+  <g font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <text x="64" y="582" fill="#fafafa" font-size="20" font-weight="600">fluxor.my.id</text>
+    <text x="220" y="582" fill="#737373" font-size="18" font-weight="400">— Built by 6ixB</text>
+  </g>
+</svg>
